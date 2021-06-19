@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { Box, Button } from "@material-ui/core";
+import { Box, Button, Typography } from "@material-ui/core";
 
 import UserSelector from "../../userSelector/userSelector.component";
 
@@ -8,20 +8,15 @@ import TransferTable from "../../tables/transferTable/TransferTable.component";
 
 import { UserType } from "../../../store/users";
 import Input from "../../input/Input.component";
-// import { useSelector } from "react-redux";
-// import { selectActiveUser } from "../../../store/user/userState.selector";
-// import { selectAllowanceActiveUser } from "../../../store/allowance/allowanceSelector";
-// import { select } from "../../../store/allowance/allowanceSelector";
+import { useSelector } from "react-redux";
+
+import {
+  selectActiveAllowanceStateByOwnerId2,
+  selectCurrentUserAllowanceUsers,
+} from "../../../store/allowance/allowanceSelector";
 
 const TransferManual: React.FC<any> = () => {
-  // const activeUser = useSelector(selectActiveUser);
-  // const allowanceForUserSelector = useSelector(
-  //   selectActiveAllowanceStateByUserId
-  // );
-
-  // const users = useSelector(selectAllowanceActiveUser);
-  // users[0].
-  // const dupa = allowanceForUserSelector(activeUser ? activeUser.id : "");
+  const allowanceUsers = useSelector(selectCurrentUserAllowanceUsers);
 
   const [rows, setRows] = useState<
     {
@@ -31,7 +26,19 @@ const TransferManual: React.FC<any> = () => {
     }[]
   >([]);
   const [user, setUser] = useState<UserType>();
+
+  const allowancesSelector = useSelector(selectActiveAllowanceStateByOwnerId2);
+  const allowances = allowancesSelector(user ? user.id : ""); //);
+
+  console.log(allowances);
+
   const [value, setValue] = useState("");
+
+  const error =
+    user &&
+    allowances &&
+    allowances.length > 0 &&
+    allowances[0].amount < Number(value);
 
   const onUserChange = (user: UserType) => {
     if (user) {
@@ -45,7 +52,7 @@ const TransferManual: React.FC<any> = () => {
         ...rows,
         {
           userName: user.name,
-          totalAmount: "Duzo",
+          totalAmount: allowances[0].amount.toString(),
           amountUsed: value,
         },
       ]);
@@ -55,22 +62,41 @@ const TransferManual: React.FC<any> = () => {
   return (
     <Box pt={2}>
       <Box width="100%" pt={2} pb={2}>
-        <UserSelector onChange={onUserChange} />
+        <UserSelector users={allowanceUsers} onChange={onUserChange} />
       </Box>
+
+      {allowances && allowances.length > 0 && (
+        <Box>
+          <Typography>MAX: {allowances[0].amount}</Typography>
+        </Box>
+      )}
 
       <Box pt={2}>
         <Input value={value} onChange={(val) => setValue(val)} label="Kwota" />
+        {error && (
+          <Typography color="error">
+            Kwota którą podałeś przekracza maksymalną
+          </Typography>
+        )}
       </Box>
 
-      <Box pt={2} width="100%" display="flex" justifyContent="center">
-        <Button color="primary" variant="contained" onClick={onClick}>
+      <Box pt={2} width="100%">
+        <Button
+          disabled={!user || value === ""}
+          style={{ width: "100%" }}
+          color="primary"
+          variant="contained"
+          onClick={onClick}
+        >
           Dodaj odbiorce
         </Button>
       </Box>
 
-      <Box pt={2}>
-        <TransferTable rows={rows} />
-      </Box>
+      {rows && rows.length > 0 && (
+        <Box pt={2}>
+          <TransferTable rows={rows} />
+        </Box>
+      )}
     </Box>
   );
 };

@@ -22,7 +22,7 @@ const theme = createMuiTheme({
       main: "#001E4B",
     },
     secondary: {
-      main: "#F2F2F2",
+      main: "#ffffff",
     },
     text: {
       primary: "#000",
@@ -133,6 +133,7 @@ const theme = createMuiTheme({
         },
       },
     },
+
     MuiPaper: {
       rounded: {
         borderRadius: 8,

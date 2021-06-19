@@ -1,4 +1,4 @@
-import React, { useReducer } from "react";
+import React, { useReducer, useState } from "react";
 
 import Box from "@material-ui/core/Box";
 import TextField from "@material-ui/core/TextField";
@@ -10,9 +10,15 @@ import { selectActiveUser } from "../../store/user/userState.selector";
 import UserSelector from "../userSelector/userSelector.component";
 
 import { UserType } from "../../store/users";
+import { useSelector } from "react-redux";
+import { usersSelectorBesideActive } from "../../store/selectors";
 
 import { allowanceDefinitionActions } from "../../store/allowance/allowanceDefinition.slice";
+<<<<<<< HEAD
 import { current } from "@reduxjs/toolkit";
+=======
+import { Alert } from "@material-ui/lab";
+>>>>>>> c2d283fa00b50725fa623ef0b6a461c9402369ab
 
 interface CreateAllowanceFormFields {
   user: UserType | null;
@@ -52,9 +58,14 @@ function reducer(
 
 const CreateAllowanceForm = () => {
   const [state, dispatch] = useReducer(reducer, initState);
+  const users = useSelector(usersSelectorBesideActive);
   const reduxDispatch = useDispatch<StoreDispatch>();
 
+<<<<<<< HEAD
 const currentUser = useSelector(selectActiveUser)
+=======
+  const [showAlarm, setShowAlarm] = useState(false);
+>>>>>>> c2d283fa00b50725fa623ef0b6a461c9402369ab
 
   const handleUserChange = (user: UserType) => {
     dispatch({
@@ -85,36 +96,33 @@ const currentUser = useSelector(selectActiveUser)
     }
   };
 
-  const handleHowManyChange = (
-    ev: React.ChangeEvent<{ name?: string; value: unknown }>
-  ) => {
-    if (ev && ev.target && typeof ev.target.value === "string") {
-      dispatch({
-        type: "howManyRepeat",
-        payload: parseInt(ev.target.value),
-      });
-    }
-  };
-
   const handleClick = () => {
+<<<<<<< HEAD
     console.log(state);
     if (!state.user || !state.howManyRepeat || !state.days) return;
     
+=======
+    if (!state.user || !state.days) return;
+>>>>>>> c2d283fa00b50725fa623ef0b6a461c9402369ab
     reduxDispatch(
       allowanceDefinitionActions.addDefinition({
         ownerId: currentUser.id,
         spenderId: state.user.id,
         amount: state.amount,
-        cycle: state.howManyRepeat,
+        cycle: 1,
         durationDays: state.days,
       })
     );
+    setShowAlarm(true);
+    setTimeout(() => {
+      setShowAlarm(false);
+    }, 3000);
   };
 
   return (
     <Box pt={5}>
       <Box p={2} width="100%">
-        <UserSelector onChange={handleUserChange} />
+        <UserSelector users={users} onChange={handleUserChange} />
       </Box>
       <Box p={2} width="100%">
         <Typography variant="h5">Kwota</Typography>
@@ -128,7 +136,7 @@ const currentUser = useSelector(selectActiveUser)
         />
       </Box>
       <Box p={2} width="100%">
-        <Typography variant="h5">Co ile dni powinien odnawiać?</Typography>
+        <Typography variant="h5">Na ile dni udostępnić środki?</Typography>
         <TextField
           type={"number"}
           style={{
@@ -138,17 +146,7 @@ const currentUser = useSelector(selectActiveUser)
           variant="outlined"
         />
       </Box>
-      <Box p={2} width="100%">
-        <Typography variant="h5">Ile razy powinien to odnowić?</Typography>
-        <TextField
-          type={"number"}
-          style={{
-            width: "100%",
-          }}
-          onChange={handleHowManyChange}
-          variant="outlined"
-        />
-      </Box>
+
       <Box p={2} width="100%">
         <Button
           style={{ width: "100%" }}
@@ -159,6 +157,12 @@ const currentUser = useSelector(selectActiveUser)
           Dodaj
         </Button>
       </Box>
+      {showAlarm && (
+        <Alert severity="success" color="success">
+          Kwota w wysokości 100 zł została udostępniona dla użytkownika Marcin
+          Misiorek
+        </Alert>
+      )}
     </Box>
   );
 };

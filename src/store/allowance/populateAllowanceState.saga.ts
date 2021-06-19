@@ -16,14 +16,12 @@ export function* populateAllowanceStateSaga(
   allowanceDefinition: AllowanceDefinition,
   allowanceExecution: AllowanceExecution
 ): Generator {
-  console.log("populateAllowanceStateSaga");
-  const { id: definitionId, amount, ownerId, spenderId } = allowanceDefinition;
-  const { durationDays, cycle, infiniteCycle } = allowanceExecution;
-  console.log(cycle);
+  const { id: definitionId, amount } = allowanceDefinition;
+  const { durationDays, cycle } = allowanceExecution;
+
   const currentDate = new Date();
   const currentFullDays = getDays(currentDate);
   const expirationFullDays = currentFullDays + durationDays;
-  console.log(currentFullDays, expirationFullDays);
 
   if (!(cycle && cycle > 0)) {
     const id = crypto.randomBytes(16).toString("hex");

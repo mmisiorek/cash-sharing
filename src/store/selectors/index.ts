@@ -14,6 +14,12 @@ export const usersSelector = createSelector(
   (reducerState) => reducerState.users
 );
 
+export const usersSelectorBesideActive = createSelector(
+  [selectReducer(StoreKeys.Users), selectReducer(StoreKeys.User)],
+  (usersReducerState, userReducerState) =>
+    usersReducerState.users.filter((x) => x.id !== userReducerState.ids[0])
+);
+
 export const userSelector = createSelector(
   selectReducer(StoreKeys.User),
   (reducerState) => reducerState
