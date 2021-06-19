@@ -8,27 +8,26 @@ import { StoreDispatch } from "../store/index.types";
 import { selectActiveAllowanceStateByUserId, selectActiveSharingStateByUserId } from "../store/allowance/allowanceSelector";
 import { allowanceStateActions } from "../store/allowance/allowanceState.slice";
 
+import { usersSelector } from "../store/selectors";
+
 export const AllowancePopulateAction = () => {
   const dispatch = useDispatch<StoreDispatch>()
   const selectAllowanceStateByUserId = useSelector(selectActiveAllowanceStateByUserId)
   const selectSharingStateByUserId = useSelector(selectActiveSharingStateByUserId)
   
-  const allowanceStateList = selectAllowanceStateByUserId('user2')
-  const sharingStateList = selectSharingStateByUserId('user1')
+  const users = useSelector(usersSelector)
+
+  const userSpender = users[0].id
+  const userOwner = users[1].id
+  const allowanceStateList = selectAllowanceStateByUserId(userSpender)
+  const sharingStateList = selectSharingStateByUserId(userOwner)
 
   const handleAddAllowanceDefinition = () => {
     dispatch(
         allowanceDefinitionActions.addDefinition({
-            ownerId: 'user1',
-            spenderId: 'user2',
-            amount: 123,
-        }),
-    )
-    dispatch(
-        allowanceDefinitionActions.addDefinition({
-            ownerId: 'user1',
-            spenderId: 'user2',
-            amount: 123,
+            ownerId:userOwner,
+            spenderId: userSpender,
+            amount: 50,
         }),
     )
   }
@@ -55,9 +54,7 @@ export const AllowancePopulateAction = () => {
           </Button>
           </li>))
       }</ul>
-      <ul>{
-        sharingStateList.map(sharingState => (<li>{sharingState.amountLeft}</li>))
-      }</ul>
+      <ul>{sharingStateList.map(sharingState => (<li>{sharingState.amountLeft}</li>))}</ul>
     </>
   );
 };

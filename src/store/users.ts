@@ -3,11 +3,8 @@ import {
   createEntityAdapter,
   PayloadAction,
   Update,
-  createSelector,
 } from '@reduxjs/toolkit'
 import { AllowanceState } from './allowance/allowance.types'
-import { StoreKeys } from './root';
-import { selectReducer } from './utils';
 
 export interface UserType {
   id: string;
@@ -24,7 +21,7 @@ export type UserStateType = {
   user: UserType|null;
 }
 
-const initialState: UsersStateType = {
+export const initialState: UsersStateType = {
   users: [
     {
       id: "510298100",
