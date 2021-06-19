@@ -4,15 +4,15 @@ import Box from "@material-ui/core/Box";
 import TextField from "@material-ui/core/TextField";
 import { Typography } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
-
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { StoreDispatch } from "../../store/index.types";
-
+import { selectActiveUser } from "../../store/user/userState.selector";
 import UserSelector from "../userSelector/userSelector.component";
 
 import { UserType } from "../../store/users";
 
 import { allowanceDefinitionActions } from "../../store/allowance/allowanceDefinition.slice";
+import { current } from "@reduxjs/toolkit";
 
 interface CreateAllowanceFormFields {
   user: UserType | null;
@@ -53,6 +53,8 @@ function reducer(
 const CreateAllowanceForm = () => {
   const [state, dispatch] = useReducer(reducer, initState);
   const reduxDispatch = useDispatch<StoreDispatch>();
+
+const currentUser = useSelector(selectActiveUser)
 
   const handleUserChange = (user: UserType) => {
     dispatch({
@@ -97,9 +99,10 @@ const CreateAllowanceForm = () => {
   const handleClick = () => {
     console.log(state);
     if (!state.user || !state.howManyRepeat || !state.days) return;
+    
     reduxDispatch(
       allowanceDefinitionActions.addDefinition({
-        ownerId: "12",
+        ownerId: currentUser.id,
         spenderId: state.user.id,
         amount: state.amount,
         cycle: state.howManyRepeat,
