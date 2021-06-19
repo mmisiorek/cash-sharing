@@ -1,13 +1,8 @@
 import React from "react";
-import {
-  MenuItem,
-  Menu,
-  Button
-} from "@material-ui/core";
+import { MenuItem, Menu, Button } from "@material-ui/core";
 
 import { useSelector } from "react-redux";
 import { usersSelector } from "../store/selectors";
-
 
 export const Users = () => {
   const users = useSelector(usersSelector);
@@ -24,7 +19,11 @@ export const Users = () => {
 
   return (
     <>
-      <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
+      <Button
+        aria-controls="simple-menu"
+        aria-haspopup="true"
+        onClick={handleClick}
+      >
         Select User
       </Button>
       <Menu
@@ -34,7 +33,9 @@ export const Users = () => {
         onClose={handleClose}
       >
         {users.map((user) => (
-          <MenuItem onClick={handleClose} data-id={user.id} key={user.id}>{user.name}</MenuItem>
+          <MenuItem onClick={handleClose} data-id={user.id} key={user.id}>
+            {user.name}
+          </MenuItem>
         ))}
       </Menu>
     </>
