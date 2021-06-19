@@ -1,12 +1,13 @@
 import React from "react";
 
 import Typography from "@material-ui/core/Typography";
+
+import { Box } from "@material-ui/core";
 import AllowancesTable, {
   AllowanceTableDataRow,
-} from "../tables/allowancesTable/AllowancesTable.component";
-import { Box } from "@material-ui/core";
+} from "./tables/allowancesTable/AllowancesTable.component";
 
-const AllowancesView = () => {
+export const UserView = () => {
   const allowances: AllowanceTableDataRow[] = [
     {
       userName: "User1",
@@ -56,19 +57,17 @@ const AllowancesView = () => {
   return (
     <Box pt={5}>
       <Typography variant="h2">Środki Dostępne</Typography>
-      <Box pt={5}>
+      <Box px={10} pt={5}>
         <AllowancesTable allowanceTableDataRows={allowances} />
       </Box>
 
       <Box pt={5}>
         <Typography variant="h2">Środki Udostępnione</Typography>
 
-        <Box pt={5}>
+        <Box px={10} pt={5}>
           <AllowancesTable allowanceTableDataRows={sharings} />
         </Box>
       </Box>
     </Box>
   );
 };
-
-export default AllowancesView;
