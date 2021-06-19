@@ -1,9 +1,9 @@
 import React from 'react'
 
 import Typography from "@material-ui/core/Typography";
-import { AllowancesTable, AllowanceTableDataRow } from "./AllowancesTable";
+import AllowancesTable, { AllowanceTableDataRow } from "../AllowancesTable";
 
-export const UserView = () => {
+const AllowancesView = () => {
     const allowances: AllowanceTableDataRow[] = [
         {
             userName: "User1",
@@ -59,3 +59,5 @@ export const UserView = () => {
         </div>
     )
 }
+
+export default AllowancesView

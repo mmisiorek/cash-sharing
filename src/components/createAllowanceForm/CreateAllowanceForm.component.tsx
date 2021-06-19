@@ -6,7 +6,7 @@ import Select from "@material-ui/core/Select"
 import { usersSelector } from "../../store/selectors";
 import { useSelector } from "react-redux";
 
-const CreateAllowanceFormComponent = () => {
+const CreateAllowanceForm = () => {
     const users = useSelector(usersSelector)
     const [selectedUserName, setSelectedUserName] = useState(users[0].name)
 
@@ -27,4 +27,4 @@ const CreateAllowanceFormComponent = () => {
     )
 }
 
-export default CreateAllowanceFormComponent
+export default CreateAllowanceForm
