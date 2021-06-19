@@ -2,8 +2,12 @@ import {
   createSlice,
   createEntityAdapter,
   PayloadAction,
+  Update,
+  createSelector,
 } from '@reduxjs/toolkit'
 import { AllowanceState } from './allowance/allowance.types'
+import { StoreKeys } from './root';
+import { selectReducer } from './utils';
 
 export interface UserType {
   id: string;
@@ -52,8 +56,14 @@ export const userSlice = createSlice({
   initialState: userSliceState,
   name: "User",
   reducers: {
-    updateBalance: (state,  action: PayloadAction<number>) => {
-      const balance = action.payload
+    updateBalance: (state,  action: PayloadAction<UserType>) => {
+      const {id, ...changes} = action.payload
+
+      const update: Update<UserType> = {
+        id,
+        changes,
+      }
+      userAdapter.updateOne(state, update)
       return state
     },
   },

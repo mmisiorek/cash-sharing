@@ -1,5 +1,6 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 import { select, put } from 'typed-redux-saga'
+import { userActions } from '../users';
 
 import { AllowanceSpend, AllowanceState} from './allowance.types'
 import { selectAllowanceByIdSelector } from './allowanceSelector';
@@ -11,7 +12,7 @@ export function* spendAllowanceSaga(
   const { id, amount: amountSpend } = action.payload
   const selectAllowanceById = yield* select(selectAllowanceByIdSelector)
   const allowanceState = selectAllowanceById(id) as AllowanceState
-  // yield* select(usersSelector)
+  // const user = yield* select(usersSelector)
 
   const {
     amountLeft,
@@ -22,7 +23,12 @@ export function* spendAllowanceSaga(
       ...allowanceState,
       amountLeft: amountLeft - amountSpend
     }
+    // const updatedUser = {
+    //   ...user,
+    //   balance: user.balance - amountSpend,
+    // }
     yield* put(allowanceStateActions.updateState(updatedAllowanceState))
+    // yield* put(userActions.updateBalance())
   } else {
     console.log('Not allowed')
   }
