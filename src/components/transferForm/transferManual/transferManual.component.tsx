@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 
 import { Box, Button, TextField, Typography } from "@material-ui/core";
-import { getInputValue } from "./ShareForm.utils";
-import { Users } from "../Users";
 
-const ShareForm: React.FC<any> = () => {
+import { Users } from "../../Users";
+import { getInputValue } from "../TransferForm.utils";
+
+const TransferManual: React.FC<any> = () => {
   const [value, setValue] = useState("");
 
   const valueChangeHandler = (
@@ -44,4 +45,4 @@ const ShareForm: React.FC<any> = () => {
   );
 };
 
-export default ShareForm;
+export default TransferManual;

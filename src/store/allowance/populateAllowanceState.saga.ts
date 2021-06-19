@@ -37,8 +37,8 @@ export function* populateAllowanceStateSaga(
     for(
       var i = 0,
       startDay=getDays(currentDate),
-      expireDay = getDays(currentDate) + durationDays; 
-      i < cycle; 
+      expireDay = getDays(currentDate) + durationDays;
+      i < cycle;
       i++, startDay=startDay+durationDays, expireDay=expireDay+durationDays
     ) {
       console.log('i',i)
@@ -50,7 +50,7 @@ export function* populateAllowanceStateSaga(
         expireDate: expireDay,
         startDate: startDay,
       }
-  
+
       yield* put(allowanceStateActions.addState(allowanceState))
     }
   }
