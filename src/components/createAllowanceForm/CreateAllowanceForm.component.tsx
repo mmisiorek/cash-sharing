@@ -1,28 +1,22 @@
 import React, { useState } from 'react'
 
 import Box from '@material-ui/core/Box'
-import Select from "@material-ui/core/Select"
+import Grid from "@material-ui/core/Grid"
+import TextField from "@material-ui/core/TextField"
 
 import { usersSelector } from "../../store/selectors";
 import { useSelector } from "react-redux";
 
 const CreateAllowanceForm = () => {
     const users = useSelector(usersSelector)
-    const [selectedUserName, setSelectedUserName] = useState(users[0].name)
-
-    const handleUserChange = (ev: React.ChangeEvent<{name ?: string, value: unknown}>) => {
-        if (ev && ev.target && typeof(ev.target.value) == 'string') {
-            setSelectedUserName(ev.target.value)
-        }
-    }
 
     return (
-        <Box>
-            <Select value={selectedUserName} onChange={handleUserChange}>
-                {users.map(user => (
-                    <option value={user.id}>{user.name}</option>
-                ))}
-            </Select>
+        <Box pt={5}>
+            <div>HEre user select</div>
+            <TextField
+                label="amount"
+                placeholder={"Amount"} />
+
         </Box>
     )
 }
