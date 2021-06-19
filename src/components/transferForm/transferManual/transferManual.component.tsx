@@ -18,7 +18,11 @@ import {
 import { allowanceStateActions } from "../../../store/allowance/allowanceState.slice";
 import { StoreDispatch } from "../../../store/index.types";
 
-const TransferManual: React.FC<any> = () => {
+interface ITransferManual {
+  onGenerateCode: () => void
+}
+
+const TransferManual: React.FC<ITransferManual> = ({ onGenerateCode }) => {
   const allowanceUsers = useSelector(selectCurrentUserAllowanceUsers);
 
   const [rows, setRows] = useState<
@@ -112,6 +116,9 @@ const TransferManual: React.FC<any> = () => {
       {rows && rows.length > 0 && (
         <Box pt={2}>
           <TransferTable rows={rows} />
+          <Button onClick={onGenerateCode}>
+            Generate transfer code
+          </Button>
         </Box>
       )}
     </Box>
