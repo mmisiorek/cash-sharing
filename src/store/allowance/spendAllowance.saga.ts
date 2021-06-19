@@ -11,6 +11,7 @@ export function* spendAllowanceSaga(
   const { id, amount: amountSpend } = action.payload
   const selectAllowanceById = yield* select(selectAllowanceByIdSelector)
   const allowanceState = selectAllowanceById(id) as AllowanceState
+  // yield* select(usersSelector)
 
   const {
     amountLeft,
@@ -21,7 +22,6 @@ export function* spendAllowanceSaga(
       ...allowanceState,
       amountLeft: amountLeft - amountSpend
     }
-    console.log('spendAllowance', amountLeft - amountSpend)
     yield* put(allowanceStateActions.updateState(updatedAllowanceState))
   } else {
     console.log('Not allowed')
