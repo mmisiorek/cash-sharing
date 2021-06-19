@@ -91,6 +91,17 @@ export const selectOwnerByAllowanceState = createSelector(
   }
 );
 
+export const selectActiveAllowanceStateByOwnerId2 = createSelector(
+  [allowanceDefinitionList, selectAllowanceActiveUser],
+  (allowanceDefinitionList, allowances) => (ownerId: string) => {
+    return allowanceDefinitionList.filter(
+      allowanceDefinition => allowances
+        .filter(() => allowanceDefinition.ownerId === ownerId)
+        .map(({ definitionId }) => definitionId)
+        .includes(allowanceDefinition.id))
+  }
+)
+
 export const selectCurrentUserAllowanceUsers = createSelector(
   [selectOwnerByAllowanceState, usersSelector],
   (allowances, users) => {
