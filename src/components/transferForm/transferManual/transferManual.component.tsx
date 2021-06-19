@@ -19,7 +19,7 @@ import { allowanceStateActions } from "../../../store/allowance/allowanceState.s
 import { StoreDispatch } from "../../../store/index.types";
 
 interface ITransferManual {
-  onGenerateCode: () => void
+  onGenerateCode: () => void;
 }
 
 const TransferManual: React.FC<ITransferManual> = ({ onGenerateCode }) => {
@@ -116,9 +116,16 @@ const TransferManual: React.FC<ITransferManual> = ({ onGenerateCode }) => {
       {rows && rows.length > 0 && (
         <Box pt={2}>
           <TransferTable rows={rows} />
-          <Button onClick={onGenerateCode}>
-            Generate transfer code
-          </Button>
+          <Box pt={2}>
+            <Button
+              style={{ width: "100%" }}
+              color="primary"
+              variant="contained"
+              onClick={onGenerateCode}
+            >
+              Generate transfer code
+            </Button>
+          </Box>
         </Box>
       )}
     </Box>

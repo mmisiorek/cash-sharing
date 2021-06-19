@@ -21,7 +21,6 @@ export function* spendAllowanceSaga(
 
   const { amountLeft } = allowanceState;
 
-  console.log(user, amountLeft);
   if (amountLeft - amountSpend >= 0 && user !== null) {
     const updatedAllowanceState = {
       ...allowanceState,
