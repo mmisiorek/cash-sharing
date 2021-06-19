@@ -51,14 +51,14 @@ const selectAllowance= useSelector(selectCurrentUserAllowanceUsers2)
     <Box pt={5} px={2}>
       <Typography variant="h2">Środki Dostępne</Typography>
       <Box pt={5}>
-        <AllowancesTable allowanceTableDataRows={allowances} />
+        {allowances.length ? <AllowancesTable allowanceTableDataRows={allowances} /> : <Typography variant={"h4"}>Brak środków dostępnych</Typography>}
       </Box>
 
       <Box pt={5}>
         <Typography variant="h2">Środki Udostępnione</Typography>
 
         <Box pt={5}>
-          <AllowancesTable allowanceTableDataRows={sharings} />
+          {sharings.length ? <AllowancesTable allowanceTableDataRows={sharings} /> : <Typography variant={"h4"}>Brak środków udostępnionych</Typography>}
         </Box>
       </Box>
     </Box>
