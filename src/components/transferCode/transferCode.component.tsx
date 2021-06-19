@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 
 import Box from "@material-ui/core/Box"
 import Typography from "@material-ui/core/Typography"
-import {CircularProgress, makeStyles} from "@material-ui/core";
+import {CircularProgress} from "@material-ui/core";
 
 function createCode() {
     const min = 100000
@@ -10,24 +10,18 @@ function createCode() {
     return Math.floor(Math.random() * (max - min)) + min;
 }
 
-const useClasses = makeStyles({
-    progressWrapper: {
-        transform: 'rotate(200deg)'
-    }
-})
 
 const TransferCode = () => {
     const [code, setCode] = useState(createCode())
     const [progress, setProgress] = useState(0)
-    const classes = useClasses()
 
     React.useEffect(() => {
         const intervalId = setInterval(() => {
-            const newProgress = progress + 10
+            const newProgress = progress + 1
             if (newProgress < 100) {
                 setProgress(newProgress)
             } else {
-                setProgress(0)
+                setProgress(-1)
                 setCode(createCode())
             }
         }, 300)
@@ -38,13 +32,13 @@ const TransferCode = () => {
     })
 
     return (
-        <Box pt={10} display="flex" justifyContent={"center"} flexDirection={"column"}>
-            <div className={classes.progressWrapper}>
-                <CircularProgress variant={"determinate"}  value={progress} size={100} />
-            </div>
-            <Typography variant={"h2"}>
-                Code: {code}
-            </Typography>
+        <Box pt={10} display="flex" style={{width: '100%'}} justifyContent={"center"} flexDirection={"column"} alignItems={"center"}>
+            <CircularProgress variant={"determinate"}  value={progress} size={300} />
+            <Box pt={2}>
+                <Typography variant={"h2"}>
+                    Code: {code}
+                </Typography>
+            </Box>
         </Box>
     )
 }
