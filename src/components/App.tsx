@@ -14,16 +14,9 @@ import { makeStyles } from "@material-ui/core";
 import { Users } from "./Users";
 import AllowancesView from "./allowancesView/AllowancesView.component";
 import { AllowancePopulateAction } from "./AllowancePopulateAction";
-
-const useClasses = makeStyles({
-  usersWrapper: {
-    display: "flex",
-    justifyContent: "flex-end",
-  },
-});
+import LayoutComponent from "./layout/layout.component";
 
 function App() {
-  const classes = useClasses();
 
   useEffect(() => {
     sagaMiddleware.run(mainSaga);
@@ -43,23 +36,23 @@ function App() {
     <div className="App">
       <Provider store={store}>
         <ThemeProvider>
-          <div className={classes.usersWrapper}>
-            <Users />
-          </div>
-          <Box>
-            <Tabs
-              items={items}
-              selectedValue={selectedTab}
-              onChange={onTabChange}
-            />
-          </Box>
+          <LayoutComponent>
+            
+            <Box>
+              <Tabs
+                items={items}
+                selectedValue={selectedTab}
+                onChange={onTabChange}
+              />
+            </Box>
 
-          <Box>
-            {items[0].value === selectedTab && <CreateAllowanceForm />}
-            {items[1].value === selectedTab && <AllowancesView />}
-            {items[2].value === selectedTab && <TransferForm />}
-          </Box>
-          <AllowancePopulateAction />
+            <Box>
+              {items[0].value === selectedTab && <CreateAllowanceForm />}
+              {items[1].value === selectedTab && <AllowancesView />}
+              {items[2].value === selectedTab && <TransferForm />}
+            </Box>
+            <AllowancePopulateAction />
+          </LayoutComponent>
         </ThemeProvider>
       </Provider>
     </div>
