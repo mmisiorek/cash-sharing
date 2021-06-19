@@ -25,9 +25,9 @@ const AllowancesTable = ({ allowanceTableDataRows }: AllowancesTableProps) => (
     <Table>
       <TableHead>
         <TableRow>
-          <TableCell>User</TableCell>
-          <TableCell>Amount</TableCell>
-          <TableCell>Expire Date</TableCell>
+          <TableCell>Użytkownicy</TableCell>
+          <TableCell>Środki</TableCell>
+          <TableCell>Data Wygaśnięcia</TableCell>
         </TableRow>
       </TableHead>
       <TableBody>

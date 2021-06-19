@@ -8,20 +8,12 @@ import TransferTable from "../../tables/transferTable/TransferTable.component";
 
 import { UserType } from "../../../store/users";
 import Input from "../../input/Input.component";
-// import { useSelector } from "react-redux";
-// import { selectActiveUser } from "../../../store/user/userState.selector";
-// import { selectAllowanceActiveUser } from "../../../store/allowance/allowanceSelector";
-// import { select } from "../../../store/allowance/allowanceSelector";
+import { useSelector } from "react-redux";
+
+import { selectCurrentUserAllowanceUsers } from "../../../store/allowance/allowanceSelector";
 
 const TransferManual: React.FC<any> = () => {
-  // const activeUser = useSelector(selectActiveUser);
-  // const allowanceForUserSelector = useSelector(
-  //   selectActiveAllowanceStateByUserId
-  // );
-
-  // const users = useSelector(selectAllowanceActiveUser);
-  // users[0].
-  // const dupa = allowanceForUserSelector(activeUser ? activeUser.id : "");
+  const allowanceUsers = useSelector(selectCurrentUserAllowanceUsers);
 
   const [rows, setRows] = useState<
     {
@@ -31,6 +23,10 @@ const TransferManual: React.FC<any> = () => {
     }[]
   >([]);
   const [user, setUser] = useState<UserType>();
+
+  // const allowancesSelector = useSelector(selectActiveAllowanceStateByOwnerId);
+  // const allowances = allowancesSelector(user ? user.id : "");
+
   const [value, setValue] = useState("");
 
   const onUserChange = (user: UserType) => {
@@ -55,7 +51,7 @@ const TransferManual: React.FC<any> = () => {
   return (
     <Box pt={2}>
       <Box width="100%" pt={2} pb={2}>
-        <UserSelector onChange={onUserChange} />
+        <UserSelector users={allowanceUsers} onChange={onUserChange} />
       </Box>
 
       <Box pt={2}>
