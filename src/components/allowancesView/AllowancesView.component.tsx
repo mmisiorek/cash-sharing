@@ -1,9 +1,28 @@
 import React from 'react'
 
 import Typography from "@material-ui/core/Typography";
+import Box from "@material-ui/core/Box"
 import AllowancesTable, { AllowanceTableDataRow } from "../allowancesTable/AllowancesTable.component";
+import { makeStyles } from "@material-ui/core";
+
+const useClasses = makeStyles(({ spacing }) => ({
+    box: {
+        marginLeft: '25%',
+        marginRight: '25%',
+        width: '50%'
+    },
+    section: {
+        marginTop: spacing(5)
+    },
+    paragraph: {
+        marginTop: spacing(0.5),
+        marginBottom: spacing(0.5)
+    }
+}))
 
 const AllowancesView = () => {
+    const classes = useClasses()
+
     const allowances: AllowanceTableDataRow[] = [
         {
             userName: "User1",
@@ -51,12 +70,16 @@ const AllowancesView = () => {
     ]
 
     return (
-        <div>
-            <Typography>Allowances:</Typography>
-            <AllowancesTable allowanceTableDataRows={allowances} />
-            <Typography>Sharings:</Typography>
-            <AllowancesTable allowanceTableDataRows={sharings} />
-        </div>
+        <Box className={classes.box}>
+            <div className={classes.section}>
+                <Typography className={classes.paragraph}  variant={"h3"}>Allowances:</Typography>
+                <AllowancesTable allowanceTableDataRows={allowances} />
+            </div>
+            <div className={classes.section}>
+                <Typography className={classes.paragraph} variant={"h3"}>Sharings:</Typography>
+                <AllowancesTable allowanceTableDataRows={sharings} />
+            </div>
+        </Box>
     )
 }
 
