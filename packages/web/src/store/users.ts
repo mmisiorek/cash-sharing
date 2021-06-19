@@ -46,7 +46,7 @@ const initialState = {
     {
       id: "487123123",
       name: "Marcin Misiorek",
-      balance: 100,
+      balance: 1000,
       allowances: [],
     },
   ],
