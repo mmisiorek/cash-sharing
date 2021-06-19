@@ -20,14 +20,6 @@ export type UsersStateType = {
   users: UserType[];
 };
 
-function addDays(date: Date, days: number) {
-  let result = new Date(date);
-  result.setDate(result.getDate() + days);
-  return result;
-}
-
-const currentDate = new Date(Date.now());
-
 const initialState = {
   users: [
     {
