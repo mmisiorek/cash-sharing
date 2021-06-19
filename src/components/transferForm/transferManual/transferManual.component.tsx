@@ -8,8 +8,21 @@ import TransferTable from "../../tables/transferTable/TransferTable.component";
 
 import { UserType } from "../../../store/users";
 import Input from "../../input/Input.component";
+// import { useSelector } from "react-redux";
+// import { selectActiveUser } from "../../../store/user/userState.selector";
+// import { selectAllowanceActiveUser } from "../../../store/allowance/allowanceSelector";
+// import { select } from "../../../store/allowance/allowanceSelector";
 
 const TransferManual: React.FC<any> = () => {
+  // const activeUser = useSelector(selectActiveUser);
+  // const allowanceForUserSelector = useSelector(
+  //   selectActiveAllowanceStateByUserId
+  // );
+
+  // const users = useSelector(selectAllowanceActiveUser);
+  // users[0].
+  // const dupa = allowanceForUserSelector(activeUser ? activeUser.id : "");
+
   const [rows, setRows] = useState<
     {
       userName: string;
@@ -17,21 +30,21 @@ const TransferManual: React.FC<any> = () => {
       amountUsed: string;
     }[]
   >([]);
-  const [user, setUser] = useState("");
+  const [user, setUser] = useState<UserType>();
   const [value, setValue] = useState("");
 
   const onUserChange = (user: UserType) => {
     if (user) {
-      setUser(user.name);
+      setUser(user);
     }
   };
 
   const onClick = () => {
-    if (user && user !== "" && value !== "") {
+    if (user && value !== "") {
       setRows([
         ...rows,
         {
-          userName: user,
+          userName: user.name,
           totalAmount: "Duzo",
           amountUsed: value,
         },
