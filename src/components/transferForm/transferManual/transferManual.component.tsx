@@ -8,14 +8,21 @@ import TransferTable from "../../tables/transferTable/TransferTable.component";
 
 import { UserType } from "../../../store/users";
 import Input from "../../input/Input.component";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import {
   selectActiveAllowanceStateByOwnerId2,
+  selectAllowanceStateByDefinitionId,
   selectCurrentUserAllowanceUsers,
 } from "../../../store/allowance/allowanceSelector";
+import { allowanceStateActions } from "../../../store/allowance/allowanceState.slice";
+import { StoreDispatch } from "../../../store/index.types";
 
-const TransferManual: React.FC<any> = () => {
+interface ITransferManual {
+  onGenerateCode: () => void;
+}
+
+const TransferManual: React.FC<ITransferManual> = ({ onGenerateCode }) => {
   const allowanceUsers = useSelector(selectCurrentUserAllowanceUsers);
 
   const [rows, setRows] = useState<
@@ -26,19 +33,24 @@ const TransferManual: React.FC<any> = () => {
     }[]
   >([]);
   const [user, setUser] = useState<UserType>();
-
+  const dispatch = useDispatch<StoreDispatch>();
+  const allowanceStateSelector = useSelector(
+    selectAllowanceStateByDefinitionId
+  );
   const allowancesSelector = useSelector(selectActiveAllowanceStateByOwnerId2);
-  const allowances = allowancesSelector(user ? user.id : ""); //);
-
-  console.log(allowances);
+  const allowances = allowancesSelector(user ? user.id : "");
+  const allowanceState = allowanceStateSelector(
+    allowances && allowances.length > 0 ? allowances[0].id : ""
+  );
 
   const [value, setValue] = useState("");
 
   const error =
     user &&
-    allowances &&
-    allowances.length > 0 &&
-    allowances[0].amount < Number(value);
+    allowanceState &&
+    allowanceState.length > 0 &&
+    (allowanceState[0].amountLeft < Number(value) ||
+      allowanceState[0].amountLeft === 0);
 
   const onUserChange = (user: UserType) => {
     if (user) {
@@ -56,6 +68,13 @@ const TransferManual: React.FC<any> = () => {
           amountUsed: value,
         },
       ]);
+
+      dispatch(
+        allowanceStateActions.spendAllowance({
+          id: allowanceState[0].id,
+          amount: Number(value),
+        })
+      );
     }
   };
 
@@ -68,7 +87,7 @@ const TransferManual: React.FC<any> = () => {
       {allowances && allowances.length > 0 && (
         <Box>
           <Typography>
-            Maksymalna kwota: {allowances[0].amount.toFixed(2)} zł
+            Maksymalna kwota: {allowanceState[0].amountLeft.toFixed(2)} zł
           </Typography>
         </Box>
       )}
@@ -97,6 +116,16 @@ const TransferManual: React.FC<any> = () => {
       {rows && rows.length > 0 && (
         <Box pt={2}>
           <TransferTable rows={rows} />
+          <Box pt={2}>
+            <Button
+              style={{ width: "100%" }}
+              color="primary"
+              variant="contained"
+              onClick={onGenerateCode}
+            >
+              Generate transfer code
+            </Button>
+          </Box>
         </Box>
       )}
     </Box>
