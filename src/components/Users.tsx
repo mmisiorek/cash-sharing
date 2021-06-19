@@ -2,17 +2,20 @@ import React from "react";
 import { MenuItem, Menu, Button } from "@material-ui/core";
 
 import { useDispatch, useSelector } from "react-redux";
-import { userSelector, usersSelector } from "../store/selectors";
+import { usersSelector } from "../store/selectors";
 
 import { userStateActions } from "../store/user/userState.slice";
 import { UserStateType } from "../store/users";
 import { StoreDispatch } from "../store/index.types";
+import { useEffect } from "react";
+import { selectActiveUser } from "../store/user/userState.selector";
 
 export const Users = () => {
   const dispatch = useDispatch<StoreDispatch>();
   const users = useSelector(usersSelector);
-  const currentUser = useSelector(userSelector);
+  const currentUser = useSelector(selectActiveUser);
   const [anchorEl, setAnchorEl] = React.useState(null);
+
   const setUser = (uid: string) => {
     const userPayload: UserStateType = {
       user: users.find((user) => user.id === uid) || null,
@@ -20,6 +23,11 @@ export const Users = () => {
 
     dispatch(userStateActions.addState(userPayload));
   };
+
+  useEffect(() => {
+    setUser(users[0].id);
+  }, []);
+
   const handleClick = (event: any) => {
     setAnchorEl(event.currentTarget);
   };
@@ -39,7 +47,7 @@ export const Users = () => {
         aria-haspopup="true"
         onClick={handleClick}
       >
-        Select User
+        {currentUser ? currentUser.name : "Select User"}
       </Button>
       <Menu
         anchorEl={anchorEl}
@@ -53,7 +61,6 @@ export const Users = () => {
           </MenuItem>
         ))}
       </Menu>
-      <div>{JSON.stringify(currentUser.entities)}</div>
     </>
   );
 };

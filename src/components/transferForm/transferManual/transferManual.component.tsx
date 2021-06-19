@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { Box, Button } from "@material-ui/core";
+import { Box, Button, Typography } from "@material-ui/core";
 
 import UserSelector from "../../userSelector/userSelector.component";
 
@@ -10,7 +10,10 @@ import { UserType } from "../../../store/users";
 import Input from "../../input/Input.component";
 import { useSelector } from "react-redux";
 
-import { selectCurrentUserAllowanceUsers } from "../../../store/allowance/allowanceSelector";
+import {
+  selectActiveAllowanceStateByOwnerId2,
+  selectCurrentUserAllowanceUsers,
+} from "../../../store/allowance/allowanceSelector";
 
 const TransferManual: React.FC<any> = () => {
   const allowanceUsers = useSelector(selectCurrentUserAllowanceUsers);
@@ -24,10 +27,18 @@ const TransferManual: React.FC<any> = () => {
   >([]);
   const [user, setUser] = useState<UserType>();
 
-  // const allowancesSelector = useSelector(selectActiveAllowanceStateByOwnerId);
-  // const allowances = allowancesSelector(user ? user.id : "");
+  const allowancesSelector = useSelector(selectActiveAllowanceStateByOwnerId2);
+  const allowances = allowancesSelector(user ? user.id : ""); //);
+
+  console.log(allowances);
 
   const [value, setValue] = useState("");
+
+  const error =
+    user &&
+    allowances &&
+    allowances.length > 0 &&
+    allowances[0].amount < Number(value);
 
   const onUserChange = (user: UserType) => {
     if (user) {
@@ -41,7 +52,7 @@ const TransferManual: React.FC<any> = () => {
         ...rows,
         {
           userName: user.name,
-          totalAmount: "Duzo",
+          totalAmount: allowances[0].amount.toString(),
           amountUsed: value,
         },
       ]);
@@ -54,12 +65,24 @@ const TransferManual: React.FC<any> = () => {
         <UserSelector users={allowanceUsers} onChange={onUserChange} />
       </Box>
 
+      {allowances && allowances.length > 0 && (
+        <Box>
+          <Typography>MAX: {allowances[0].amount}</Typography>
+        </Box>
+      )}
+
       <Box pt={2}>
         <Input value={value} onChange={(val) => setValue(val)} label="Kwota" />
+        {error && (
+          <Typography color="error">
+            Kwota którą podałeś przekracza maksymalną
+          </Typography>
+        )}
       </Box>
 
       <Box pt={2} width="100%">
         <Button
+          disabled={!user || value === ""}
           style={{ width: "100%" }}
           color="primary"
           variant="contained"

@@ -43,7 +43,18 @@ const UserSelector: React.FC<UserSelectorProps> = ({ users, onChange }) => {
         onChange={handleUserChange}
       >
         {users.map((user) => (
-          <option value={user.id}>{user.name}</option>
+          <option
+            style={{
+              height: 50,
+              backgroundColor: "white",
+              cursor: "pointer",
+              fontSize: 20,
+              fontWeight: 500,
+            }}
+            value={user.id}
+          >
+            {user.name}
+          </option>
         ))}
       </Select>
     </Box>
