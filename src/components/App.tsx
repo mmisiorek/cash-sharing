@@ -4,7 +4,7 @@ import { Provider } from "react-redux";
 import { mainSaga } from "../saga";
 import { sagaMiddleware, store } from "../store";
 import { ThemeProvider } from "../styles/theme";
-
+import {Users } from './Users'
 import Tabs from "./tabs/tabs.component";
 
 import TransferForm from "./transferForm/TransferForm.component";
@@ -34,7 +34,6 @@ function App() {
     <div className="App">
       <Provider store={store}>
         <ThemeProvider>
-<<<<<<< HEAD
           <div className={classes.usersWrapper}>
             <Users />
           </div>
@@ -52,23 +51,6 @@ function App() {
             {items[2].value === selectedTab && <TransferForm />}
           </Box>
           {/* <AllowancePopulateAction /> */}
-=======
-          <LayoutComponent>
-            <Box>
-              <Tabs
-                items={items}
-                selectedValue={selectedTab}
-                onChange={onTabChange}
-              />
-            </Box>
-
-            <Box>
-              {items[0].value === selectedTab && <CreateAllowanceForm />}
-              {items[1].value === selectedTab && <AllowancesView />}
-              {items[2].value === selectedTab && <TransferForm />}
-            </Box>
-          </LayoutComponent>
->>>>>>> c2d283fa00b50725fa623ef0b6a461c9402369ab
         </ThemeProvider>
       </Provider>
     </div>

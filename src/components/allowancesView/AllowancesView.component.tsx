@@ -6,6 +6,7 @@ import {
   selectOwnerByAllowanceState,
   selectSharingActiveUser,
   sharingDefinitionByUserId,
+  selectAllowanceDefinitionByUserId
 } from "../../store/allowance/allowanceSelector";
 import { allowanceStateActions } from "../../store/allowance/allowanceState.slice";
 import { selectActiveUser } from "../../store/user/userState.selector";
@@ -17,31 +18,34 @@ import { Box } from "@material-ui/core";
 import AllowancesTable, {
   AllowanceTableDataRow,
 } from "../tables/allowancesTable/AllowancesTable.component";
-<<<<<<< HEAD
 import { current } from "@reduxjs/toolkit";
-=======
-import { Box } from "@material-ui/core";
 import TransferCode from "../transferCode/transferCode.component";
->>>>>>> c2d283fa00b50725fa623ef0b6a461c9402369ab
 
 const AllowancesView = () => {
-  // const currentUser = useSelector(selectActiveUser);
-  // console.log(`currentUser ${currentUser}`);
-  // const definitions = useSelector(sharingDefinitionByUserId)(currentUser.id);
-  // const definitionsSharing = useSelector(selectAllowanceDefinitionByUserId)
-  // console.log(`definitions are ${definitions}`);
+  const currentUser = useSelector(selectActiveUser);
+  console.log(`currentUser ${currentUser}`);
+  const definitions = useSelector(sharingDefinitionByUserId)(currentUser.id);
+  const definitionsSharing = useSelector(selectAllowanceDefinitionByUserId)(currentUser.id)
+  console.log(`definitions are ${definitions}`);
+  console.log(`definitionsSharing ${definitionsSharing}`)
 
-  // console.log(definitions[0]?.ownerId);
-  // console.log(definitions[0]?.spenderId);
+  console.log(definitions[0]?.ownerId);
+  console.log(definitions[0]?.spenderId);
 
-  // const allowances = useSelector(selectAllowanceActiveUser).map((dupa) => {
-  //   return {
-  //     userName: "User1",
-  //     expireDate: "duap",
-  //     amountLeft: "123",
-  //   };
-  // });
-  // const sharing = useSelector(selectSharingActiveUser);
+  const allowances = useSelector(selectAllowanceActiveUser).map((dupa) => {
+    return {
+      userName: "User1",
+      expireDate: "duap",
+      amountLeft: "123",
+    };
+  });
+  const sharings = useSelector(selectSharingActiveUser).map((a) => {
+    return {
+      userName: 'User2',
+      expireDate: 'duap',
+      amountLeft: '123'
+    }
+  });
 
   // const allowances: AllowanceTableDataRow[] = [
   //   {
@@ -89,31 +93,22 @@ const AllowancesView = () => {
   //   },
   // ];
 
-<<<<<<< HEAD
-  // return (
-  //   <Box pt={5}>
-  //     <Typography variant="h2">Środki Dostępne</Typography>
-  //     <Box pt={5}>
-  //       <AllowancesTable allowanceTableDataRows={allowances} />
-  //     </Box>
-=======
   return (
-    <Box pt={5}  px={2}>
+    <Box pt={5}>
       <Typography variant="h2">Środki Dostępne</Typography>
       <Box pt={5}>
         <AllowancesTable allowanceTableDataRows={allowances} />
       </Box>
->>>>>>> c2d283fa00b50725fa623ef0b6a461c9402369ab
 
-  //     <Box pt={5}>
-  //       <Typography variant="h2">Środki Udostępnione</Typography>
+      <Box pt={5}>
+        <Typography variant="h2">Środki Udostępnione</Typography>
 
-  //       <Box pt={5}>
-  //         {/* <AllowancesTable allowanceTableDataRows={sharings} /> */}
-  //       </Box>
-  //     </Box>
-  //   </Box>
-  // );
+        <Box pt={5}>
+          <AllowancesTable allowanceTableDataRows={sharings} />
+        </Box>
+      </Box>
+    </Box>
+  );
 };
 
 export default AllowancesView;

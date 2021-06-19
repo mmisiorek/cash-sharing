@@ -10,15 +10,11 @@ import { selectActiveUser } from "../../store/user/userState.selector";
 import UserSelector from "../userSelector/userSelector.component";
 
 import { UserType } from "../../store/users";
-import { useSelector } from "react-redux";
 import { usersSelectorBesideActive } from "../../store/selectors";
 
 import { allowanceDefinitionActions } from "../../store/allowance/allowanceDefinition.slice";
-<<<<<<< HEAD
 import { current } from "@reduxjs/toolkit";
-=======
 import { Alert } from "@material-ui/lab";
->>>>>>> c2d283fa00b50725fa623ef0b6a461c9402369ab
 
 interface CreateAllowanceFormFields {
   user: UserType | null;
@@ -61,11 +57,8 @@ const CreateAllowanceForm = () => {
   const users = useSelector(usersSelectorBesideActive);
   const reduxDispatch = useDispatch<StoreDispatch>();
 
-<<<<<<< HEAD
 const currentUser = useSelector(selectActiveUser)
-=======
   const [showAlarm, setShowAlarm] = useState(false);
->>>>>>> c2d283fa00b50725fa623ef0b6a461c9402369ab
 
   const handleUserChange = (user: UserType) => {
     dispatch({
@@ -97,13 +90,7 @@ const currentUser = useSelector(selectActiveUser)
   };
 
   const handleClick = () => {
-<<<<<<< HEAD
-    console.log(state);
-    if (!state.user || !state.howManyRepeat || !state.days) return;
-    
-=======
     if (!state.user || !state.days) return;
->>>>>>> c2d283fa00b50725fa623ef0b6a461c9402369ab
     reduxDispatch(
       allowanceDefinitionActions.addDefinition({
         ownerId: currentUser.id,
