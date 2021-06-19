@@ -83,6 +83,8 @@ export const selectUsersAllowance = createSelector(
 export const selectOwnerByAllowanceState = createSelector(
   [allowanceDefinitionList, selectAllowanceActiveUser],
   (allowanceDefinitionList, allowances) => {
+    console.log(` allowance def list${allowanceDefinitionList}`) 
+    console.log(` allowances are${allowances}`) 
     return allowanceDefinitionList.filter((allowanceDefinition) =>
       allowances
         .map(({ definitionId }) => definitionId)
@@ -106,6 +108,24 @@ export const selectCurrentUserAllowanceUsers = createSelector(
   [selectOwnerByAllowanceState, usersSelector],
   (allowances, users) => {
     const usersWithAllowance = allowances
+      .map((x) => users.find((y) => y.id === x.ownerId))
+      .filter((x) => x !== undefined);
+
+    return usersWithAllowance as UserType[];
+  }
+);
+
+
+
+export const selectCurrentUserAllowanceUsers2 = createSelector(
+  [selectOwnerByAllowanceState, usersSelector],
+  (allowances, users) =>
+  (definitionId: string) => 
+  {
+    console.log(`allowances ${allowances}`)
+    const usersWithAllowance = allowances.filter((allowance) => {
+      return allowance.id === definitionId
+    })
       .map((x) => users.find((y) => y.id === x.ownerId))
       .filter((x) => x !== undefined);
 
@@ -157,6 +177,33 @@ export const selectSharingActiveUser = createSelector(
   }
 );
 
+export const selectOwnerByShareState = createSelector(
+  [allowanceDefinitionList, selectSharingActiveUser],
+  (allowanceDefinitionList, allowances) => {
+    console.log(` allowance def list${allowanceDefinitionList}`) 
+    console.log(` allowances are${allowances}`) 
+    return allowanceDefinitionList.filter((allowanceDefinition) =>
+      allowances
+        .map(({ definitionId }) => definitionId)
+        .includes(allowanceDefinition.id)
+    );
+  }
+);
+export const selectCurrentUserShareUsers = createSelector(
+  [selectOwnerByShareState, usersSelector],
+  (allowances, users) =>
+  (definitionId: string) => 
+  {
+    console.log(`allowances ${allowances}`)
+    const usersWithAllowance = allowances.filter((allowance) => {
+      return allowance.id === definitionId
+    })
+      .map((x) => users.find((y) => y.id === x.spenderId))
+      .filter((x) => x !== undefined);
+
+    return usersWithAllowance as UserType[];
+  }
+);
 export const selectActiveSharingBySpenderId = createSelector(
   [selectSharingActiveUser],
   (sharingActiveUser) => (spenderId: string) =>

@@ -6,12 +6,13 @@ import {
   selectOwnerByAllowanceState,
   selectSharingActiveUser,
   sharingDefinitionByUserId,
-  selectAllowanceDefinitionByUserId
+  selectAllowanceDefinitionByUserId,
+  selectCurrentUserShareUsers,selectCurrentUserAllowanceUsers2
 } from "../../store/allowance/allowanceSelector";
 import { allowanceStateActions } from "../../store/allowance/allowanceState.slice";
 import { selectActiveUser } from "../../store/user/userState.selector";
 
-import { usersSelector } from "../../store/selectors";
+
 import Typography from "@material-ui/core/Typography";
 
 import { Box } from "@material-ui/core";
@@ -23,77 +24,28 @@ import TransferCode from "../transferCode/transferCode.component";
 
 const AllowancesView = () => {
   const currentUser = useSelector(selectActiveUser);
-  console.log(`currentUser ${currentUser}`);
-  const definitions = useSelector(sharingDefinitionByUserId)(currentUser.id);
   const definitionsSharing = useSelector(selectAllowanceDefinitionByUserId)(currentUser.id)
-  console.log(`definitions are ${definitions}`);
   console.log(`definitionsSharing ${definitionsSharing}`)
+const selectSharingUser = useSelector(selectCurrentUserShareUsers)
+const selectAllowance= useSelector(selectCurrentUserAllowanceUsers2)
 
-  console.log(definitions[0]?.ownerId);
-  console.log(definitions[0]?.spenderId);
-
-  const allowances = useSelector(selectAllowanceActiveUser).map((dupa) => {
-    console.log(`sharings are ${dupa.definitionId}`)
+  const sharings = useSelector(selectSharingActiveUser).map((u) => {
+    console.log(`sharings are ${u.definitionId}`)
     return {
-      userName: "User1",
-      expireDate: "duap",
-      amountLeft: "123",
+      userName:selectSharingUser(u.definitionId)[0]?.name,
+      expireDate: u.expireDate.toString(),
+      amountLeft: u.amountLeft.toString()
     };
   });
-  const sharings = useSelector(selectSharingActiveUser).map((dupa) => {
-    console.log(`sharings are ${dupa.definitionId}`)
+  const allowances = useSelector(selectAllowanceActiveUser).map((u) => {
+
     return {
-      userName: 'User2',
-      expireDate: 'duap',
-      amountLeft: '123'
+      userName:selectAllowance(u.definitionId)[0]?.name,
+      expireDate: u.expireDate.toString(),
+      amountLeft: u.amountLeft.toString()
     }
   });
 
-  // const allowances: AllowanceTableDataRow[] = [
-  //   {
-  //     userName: "User1",
-  //     amountLeft: "100",
-  //     expireDate: 1624110137,
-  //   },
-  //   {
-  //     userName: "User2",
-  //     amountLeft: "100",
-  //     expireDate: 1624110137,
-  //   },
-  //   {
-  //     userName: "User3",
-  //     amountLeft: "100",
-  //     expireDate: 1624110137,
-  //   },
-  //   {
-  //     userName: "User4",
-  //     amountLeft: "100",
-  //     expireDate: 1624110137,
-  //   },
-  // ];
-
-  // const sharings: AllowanceTableDataRow[] = [
-  //   {
-  //     userName: "User1",
-  //     amountLeft: "100",
-  //     expireDate: 1624110137,
-  //   },
-  //   {
-  //     userName: "User2",
-  //     amountLeft: "100",
-  //     expireDate: 1624110137,
-  //   },
-  //   {
-  //     userName: "User3",
-  //     amountLeft: "100",
-  //     expireDate: 1624110137,
-  //   },
-  //   {
-  //     userName: "User4",
-  //     amountLeft: "100",
-  //     expireDate: 1624110137,
-  //   },
-  // ];
 
   return (
     <Box pt={5} px={2}>
