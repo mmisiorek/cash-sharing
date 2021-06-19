@@ -24,3 +24,9 @@ export interface AllowanceState {
   startDate: number;
   expireDate: number;
 }
+
+
+export interface AllowanceSpend {
+  id: AllowanceState['id'];
+  amount: number;
+}

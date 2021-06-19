@@ -1,19 +1,15 @@
-import { ActionType } from "./index.types";
-
-export interface Allowance {
-  receiverId: string;
-  amount: number;
-  startDate: Date;
-  expireDate: Date;
-  infiniteCycle?: boolean;
-  cycle?: number;
-}
+import {
+  createSlice,
+  createEntityAdapter,
+  PayloadAction,
+} from "@reduxjs/toolkit";
+import { AllowanceState } from "./allowance/allowance.types";
 
 export interface UserType {
   id: string;
   name: string;
   balance: number;
-  allowances: Allowance[];
+  allowances: Array<AllowanceState["id"]>;
 }
 
 export type UsersStateType = {
@@ -24,15 +20,7 @@ export type UserStateType = {
   user: UserType|null;
 }
 
-// function addDays(date: Date, days: number) {
-//   let result = new Date(date);
-//   result.setDate(result.getDate() + days);
-//   return result;
-// }
-
-// const currentDate = new Date(Date.now());
-
-const initialState = {
+const initialState: UsersStateType = {
   users: [
     {
       id: "510298100",
@@ -60,15 +48,20 @@ const initialState = {
     },
   ],
 };
+export const userAdapter = createEntityAdapter<UserType>();
 
-export function usersReducer(
-  state: UsersStateType = initialState,
-  action: ActionType
-): UsersStateType {
-  switch (action.type) {
-    case "something":
+const userSliceState = userAdapter.getInitialState(initialState);
+
+export const usersSlice = createSlice({
+  initialState: userSliceState,
+  name: "Users",
+  reducers: {
+    updateBalance: (state, action: PayloadAction<number>) => {
+      const balance = action.payload;
       return state;
-    default:
-      return state;
-  }
-}
+    },
+  },
+});
+
+export const userActions = usersSlice.actions;
+export const userReducer = usersSlice.reducer;

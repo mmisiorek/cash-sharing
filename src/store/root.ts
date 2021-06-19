@@ -1,6 +1,6 @@
 import { combineReducers } from "@reduxjs/toolkit";
 
-import { usersReducer } from "./users";
+import { userReducer } from "./users";
 import { allowanceDefinitionReducer } from './allowance/allowanceDefinition.slice'
 import { allowanceStateReducer } from './allowance/allowanceState.slice'
 import { userStateReducer } from "./user/userState.slice";
@@ -14,7 +14,7 @@ export enum StoreKeys {
 
 export const rootReducer = combineReducers({
   [StoreKeys.User]: userStateReducer,
-  [StoreKeys.Users]: usersReducer,
+  [StoreKeys.Users]: userReducer,
   [StoreKeys.AllowanceDefinition]: allowanceDefinitionReducer,
   [StoreKeys.AllowanceState]: allowanceStateReducer,
 });

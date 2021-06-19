@@ -8,6 +8,8 @@ import TableCell from "@material-ui/core/TableCell"
 import TableBody from "@material-ui/core/TableBody"
 import Paper from "@material-ui/core/Paper"
 
+import moment from 'moment'
+
 export type AllowanceTableDataRow = {
     userName: string,
     amountLeft: string,
@@ -33,7 +35,7 @@ const AllowancesTable = ({ allowanceTableDataRows }: AllowancesTableProps) => (
                     <TableRow>
                         <TableCell>{allowanceTableDataRow.userName}</TableCell>
                         <TableCell>{allowanceTableDataRow.amountLeft}</TableCell>
-                        <TableCell>{allowanceTableDataRow.expireDate}</TableCell>
+                        <TableCell>{moment(allowanceTableDataRow.expireDate * 1000).format("DD-MM-YYYY h:mm:ss")}</TableCell>
                     </TableRow>
                 ))}
             </TableBody>
