@@ -3,7 +3,7 @@ import {
   createEntityAdapter,
   PayloadAction,
 } from '@reduxjs/toolkit'
-import { AllowanceDefinition } from './allowance.types'
+import { AllowanceDefinition, AllowanceDefinitionData } from './allowance.types'
 
 export const allowanceDefinitionAdapter = createEntityAdapter<AllowanceDefinition>()
 
@@ -13,7 +13,11 @@ export const allowanceDefinitionSlice = createSlice({
   initialState: initAllowanceDefinitionSliceState,
   name: "AllowanceDefinition",
   reducers: {
-    addDefinition: (state,  _action: PayloadAction<AllowanceDefinition>) => state,
+    addDefinition: (state,  _action: PayloadAction<AllowanceDefinitionData>) => state,
+    addDefinitionToStore: (state,  action: PayloadAction<AllowanceDefinition>) => {
+      allowanceDefinitionAdapter.addOne(state, action.payload)
+      return state
+    },
   },
 })
 

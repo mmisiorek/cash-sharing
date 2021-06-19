@@ -1,4 +1,11 @@
+export interface AllowanceDefinitionData {
+  ownerId: string;
+  spenderId: string;
+  amount: number;
+}
+
 export interface AllowanceDefinition {
+  id: string;
   ownerId: string;
   spenderId: string;
   amount: number;
@@ -12,8 +19,7 @@ export interface AllowanceExecution {
 
 export interface AllowanceState {
   id: string;
-  ownerId: string;
-  spenderId: string;
+  definitionId: string;
   amountLeft: number;
   startDate: number;
   expireDate: number;

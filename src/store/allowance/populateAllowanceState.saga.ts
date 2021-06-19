@@ -12,8 +12,9 @@ export function* populateAllowanceStateSaga(
   allowanceExecution: AllowanceExecution
 ): Generator {
   console.log('populateAllowanceStateSaga')
-  const { amount, ownerId, spenderId } = allowanceDefinition;
+  const { id: definitionId, amount, ownerId, spenderId } = allowanceDefinition;
   const { durationDays, cycle, infiniteCycle } = allowanceExecution;
+  console.log(cycle)
   const currentDate = new Date();
   const currentFullDays = getDays(currentDate);
   const expirationFullDays = currentFullDays + durationDays
@@ -23,13 +24,34 @@ export function* populateAllowanceStateSaga(
     const id = crypto.randomBytes(16).toString('hex')
     const allowanceState: AllowanceState = {
       id,
-      ownerId,
-      spenderId,
+      definitionId,
       amountLeft: amount,
       expireDate: expirationFullDays,
       startDate: currentFullDays,
     }
 
     yield* put(allowanceStateActions.addState(allowanceState))
+  } else {
+    const currentDate = new Date();
+    console.log('cycle population')
+    for(
+      var i = 0,
+      startDay=getDays(currentDate),
+      expireDay = getDays(currentDate) + durationDays;
+      i < cycle;
+      i++, startDay=startDay+durationDays, expireDay=expireDay+durationDays
+    ) {
+      console.log('i',i)
+      const id = crypto.randomBytes(16).toString('hex')
+      const allowanceState: AllowanceState = {
+        id,
+        definitionId,
+        amountLeft: amount,
+        expireDate: expireDay,
+        startDate: startDay,
+      }
+
+      yield* put(allowanceStateActions.addState(allowanceState))
+    }
   }
 }
