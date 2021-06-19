@@ -1,4 +1,4 @@
-import React, { useReducer } from "react";
+import React, { useReducer, useState } from "react";
 
 import Box from "@material-ui/core/Box";
 import TextField from "@material-ui/core/TextField";
@@ -15,6 +15,7 @@ import { useSelector } from "react-redux";
 import { usersSelectorBesideActive } from "../../store/selectors";
 
 import { allowanceDefinitionActions } from "../../store/allowance/allowanceDefinition.slice";
+import { Alert } from "@material-ui/lab";
 
 interface CreateAllowanceFormFields {
   user: UserType | null;
@@ -56,6 +57,8 @@ const CreateAllowanceForm = () => {
   const [state, dispatch] = useReducer(reducer, initState);
   const users = useSelector(usersSelectorBesideActive);
   const reduxDispatch = useDispatch<StoreDispatch>();
+
+  const [showAlarm, setShowAlarm] = useState(false);
 
   const handleUserChange = (user: UserType) => {
     dispatch({
@@ -108,6 +111,10 @@ const CreateAllowanceForm = () => {
         durationDays: state.days,
       })
     );
+    setShowAlarm(true);
+    setTimeout(() => {
+      setShowAlarm(false);
+    }, 3000);
   };
 
   return (
@@ -127,7 +134,7 @@ const CreateAllowanceForm = () => {
         />
       </Box>
       <Box p={2} width="100%">
-        <Typography variant="h5">Co ile dni powinien odnawiać?</Typography>
+        <Typography variant="h5">Na ile dni udostępnić środki?</Typography>
         <TextField
           type={"number"}
           style={{
@@ -138,7 +145,7 @@ const CreateAllowanceForm = () => {
         />
       </Box>
       <Box p={2} width="100%">
-        <Typography variant="h5">Ile razy powinien to odnowić?</Typography>
+        <Typography variant="h5">Ile razy powtórzyć udostępnianie?</Typography>
         <TextField
           type={"number"}
           style={{
@@ -158,6 +165,12 @@ const CreateAllowanceForm = () => {
           Dodaj
         </Button>
       </Box>
+      {showAlarm && (
+        <Alert severity="success" color="success">
+          Kwota w wysokości 100 zł została udostępniona dla użytkownika Marcin
+          Misiorek
+        </Alert>
+      )}
     </Box>
   );
 };
