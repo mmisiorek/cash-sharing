@@ -5,9 +5,16 @@ import TextField from "@material-ui/core/TextField";
 import { Typography } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 
+import { useDispatch } from "react-redux";
+import { StoreDispatch } from "../../store/index.types";
+
 import UserSelector from "../userSelector/userSelector.component";
 
 import { UserType } from "../../store/users";
+import { useSelector } from "react-redux";
+import { usersSelectorBesideActive } from "../../store/selectors";
+
+import { allowanceDefinitionActions } from "../../store/allowance/allowanceDefinition.slice";
 
 interface CreateAllowanceFormFields {
   user: UserType | null;
@@ -47,6 +54,8 @@ function reducer(
 
 const CreateAllowanceForm = () => {
   const [state, dispatch] = useReducer(reducer, initState);
+  const users = useSelector(usersSelectorBesideActive);
+  const reduxDispatch = useDispatch<StoreDispatch>();
 
   const handleUserChange = (user: UserType) => {
     dispatch({
@@ -89,13 +98,22 @@ const CreateAllowanceForm = () => {
   };
 
   const handleClick = () => {
-    console.log(state);
+    if (!state.user || !state.howManyRepeat || !state.days) return;
+    reduxDispatch(
+      allowanceDefinitionActions.addDefinition({
+        ownerId: "12",
+        spenderId: state.user.id,
+        amount: state.amount,
+        cycle: state.howManyRepeat,
+        durationDays: state.days,
+      })
+    );
   };
 
   return (
     <Box pt={5}>
       <Box p={2} width="100%">
-        <UserSelector onChange={handleUserChange} />
+        <UserSelector users={users} onChange={handleUserChange} />
       </Box>
       <Box p={2} width="100%">
         <Typography variant="h5">Kwota</Typography>

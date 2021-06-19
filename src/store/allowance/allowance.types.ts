@@ -2,6 +2,8 @@ export interface AllowanceDefinitionData {
   ownerId: string;
   spenderId: string;
   amount: number;
+  cycle: number,
+  durationDays: number
 }
 
 export interface AllowanceDefinition {
