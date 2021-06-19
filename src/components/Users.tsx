@@ -2,18 +2,26 @@ import React from "react";
 import { MenuItem, Menu, Button } from "@material-ui/core";
 
 import { useSelector } from "react-redux";
-import { usersSelector } from "../store/selectors";
+import { userSelector, usersSelector } from "../store/selectors";
+
+import { userStateActions } from "../store/user/userState.slice";
 
 export const Users = () => {
   const users = useSelector(usersSelector);
+  const currentUser = useSelector(userSelector);
   const [anchorEl, setAnchorEl] = React.useState(null);
-
+  const setUser = (uid: string) => {
+    userStateActions.addState({ user: users.find(user => user.id === uid) || null });
+  }
   const handleClick = (event: any) => {
     setAnchorEl(event.currentTarget);
   };
 
   const handleClose = (event: any) => {
-    console.log(event.currentTarget.getAttribute("data-id"));
+    const choosenId = event?.currentTarget?.getAttribute("data-id");
+    if(choosenId) {
+      setUser(choosenId);
+    }
     setAnchorEl(null);
   };
 
@@ -38,6 +46,9 @@ export const Users = () => {
           </MenuItem>
         ))}
       </Menu>
+      <div>
+        {JSON.stringify(currentUser.entities)}
+      </div>
     </>
   );
 };
