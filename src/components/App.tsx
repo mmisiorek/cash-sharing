@@ -14,6 +14,7 @@ import { Box } from "@material-ui/core";
 import AllowancesView from "./allowancesView/AllowancesView.component";
 
 import LayoutComponent from "./layout/layout.component";
+import TransferCode from "./transferCode/transferCode.component";
 
 function App() {
   useEffect(() => {
@@ -49,6 +50,7 @@ function App() {
               {items[2].value === selectedTab && <TransferForm />}
             </Box>
           </LayoutComponent>
+          <TransferCode />
         </ThemeProvider>
       </Provider>
     </div>
