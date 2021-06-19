@@ -37,7 +37,7 @@ export const UserDetails: React.FC= () => {
     }
     return (
         <>
-            <Button>Ballance: {currentUser?.balance} PLN</Button>
+            <Button>Ballance: <br />{currentUser?.balance} PLN</Button>
             <Button
                 aria-haspopup="true"
                 onClick={handleClick}

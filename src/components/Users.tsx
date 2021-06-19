@@ -1,16 +1,39 @@
-import React from "react";
-import { MenuItem, Menu, Button } from "@material-ui/core";
-
+import React, { useEffect } from "react";
+import { Card, MenuItem, Menu, Button, IconButton, CardMedia, CardContent, Typography, CardActions } from "@material-ui/core";
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { makeStyles } from "@material-ui/core/styles";
 import { useDispatch, useSelector } from "react-redux";
-import { usersSelector } from "../store/selectors";
 
+import { usersSelector } from "../store/selectors";
 import { userStateActions } from "../store/user/userState.slice";
 import { UserStateType } from "../store/users";
 import { StoreDispatch } from "../store/index.types";
-import { useEffect } from "react";
 import { selectActiveUser } from "../store/user/userState.selector";
+import mainLogo from'./layout/logo.png';
+
+const useStyles = makeStyles({
+  wrapper: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  logo: {
+    width: 480,
+    height: "auto",
+  },
+  root: {
+    maxWidth: 345,
+    margin: "calc(50vh - 175px) auto"
+  },
+  media: {
+    height: 0,
+    paddingTop: '56.25%', // 16:9
+    backgroundSize: "contain"
+  },
+});
 
 export const Users = () => {
+  const classes = useStyles();
   const dispatch = useDispatch<StoreDispatch>();
   const users = useSelector(usersSelector);
   const currentUser = useSelector(selectActiveUser);
@@ -42,13 +65,30 @@ export const Users = () => {
 
   return (
     <>
-      {!currentUser?.id && (<Button
-        aria-controls="simple-menu"
-        aria-haspopup="true"
-        onClick={handleClick}
-      >
-        Select User
-      </Button>
+      {!currentUser?.id && (<>
+      <div className={classes.wrapper}></div>
+        <Card className={classes.root}>
+          <CardMedia
+            className={classes.media}
+            image={mainLogo}
+            title="Paella dish"
+          />
+          <CardContent>
+            <Typography variant="body2" color="textSecondary" component="p">
+              Project description
+            </Typography>
+          </CardContent>
+          <CardActions disableSpacing>
+            <Button
+              aria-controls="simple-menu"
+              aria-haspopup="true"
+              onClick={handleClick}
+            >
+              Select User <ExpandMoreIcon />
+            </Button>
+          </CardActions>
+        </Card>
+        </>
       )}
       <Menu
         anchorEl={anchorEl}
