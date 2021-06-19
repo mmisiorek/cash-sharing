@@ -14,7 +14,6 @@ export function* addAllowanceDefinitionSaga(
     durationDays: 2,
     cycle: 2,
   }
-  console.log('add allowance definition')
 
   const id = crypto.randomBytes(16).toString('hex')
 
@@ -24,7 +23,5 @@ export function* addAllowanceDefinitionSaga(
   }
 
   yield* put(allowanceDefinitionActions.addDefinitionToStore(allowanceDefinition))
-
   yield* call(populateAllowanceStateSaga, allowanceDefinition, allowanceExecution)
-  console.log('end add allowance definition')
 }

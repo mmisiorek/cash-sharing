@@ -33,7 +33,6 @@ export function* populateAllowanceStateSaga(
     yield* put(allowanceStateActions.addState(allowanceState))
   } else {
     const currentDate = new Date();
-    console.log('cycle population')
     for(
       var i = 0,
       startDay=getDays(currentDate),
@@ -41,13 +40,12 @@ export function* populateAllowanceStateSaga(
       i < cycle; 
       i++, startDay=startDay+durationDays, expireDay=expireDay+durationDays
     ) {
-      console.log('i',i)
       const id = crypto.randomBytes(16).toString('hex')
       const allowanceState: AllowanceState = {
         id,
         definitionId,
         amountLeft: amount,
-        expireDate: expireDay,
+        expireDate: expireDay - 1,
         startDate: startDay,
       }
   
