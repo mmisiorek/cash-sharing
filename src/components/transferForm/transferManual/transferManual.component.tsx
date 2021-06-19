@@ -67,7 +67,9 @@ const TransferManual: React.FC<any> = () => {
 
       {allowances && allowances.length > 0 && (
         <Box>
-          <Typography>MAX: {allowances[0].amount}</Typography>
+          <Typography>
+            Maksymalna kwota: {allowances[0].amount.toFixed(2)} zł
+          </Typography>
         </Box>
       )}
 

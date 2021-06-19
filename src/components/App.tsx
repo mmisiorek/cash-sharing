@@ -10,7 +10,6 @@ import Tabs from "./tabs/tabs.component";
 import TransferForm from "./transferForm/TransferForm.component";
 import CreateAllowanceForm from "./createAllowanceForm/CreateAllowanceForm.component";
 import { Box } from "@material-ui/core";
-
 import AllowancesView from "./allowancesView/AllowancesView.component";
 
 import LayoutComponent from "./layout/layout.component";

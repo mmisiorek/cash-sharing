@@ -51,6 +51,7 @@ const UserSelector: React.FC<UserSelectorProps> = ({ users, onChange }) => {
               fontSize: 20,
               fontWeight: 500,
             }}
+            key={user.id}
             value={user.id}
           >
             {user.name}
