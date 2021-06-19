@@ -8,14 +8,19 @@ import ShareForm from "./shareForm/ShareForm.component";
 import Tabs from "./tabs/tabs.component";
 import { Users } from "./Users";
 import { AllowancePopulateAction } from "./AllowancePopulateAction";
+import AllowanceForm from "./allowanceForm/AllowanceForm.component";
+import TransferForm from "./transferForm/TransferForm.component";
+import { Box } from "@material-ui/core";
 
 function App() {
   useEffect(() => {
     sagaMiddleware.run(mainSaga);
   }, []);
+
   const items = [
-    { label: "Wprowadź wartości ręcznie", value: "1" },
-    { label: "Wylicz wartości automatycznie", value: "2" },
+    { label: "Udostępnij środki", value: "add allowance" },
+    { label: "Przeglądaj udostępnione środki", value: "view Allowance" },
+    { label: "Wykonaj transfer", value: "transfer" },
   ];
 
   const [selectedTab, setSelectedTab] = useState(items[0].value);
@@ -26,15 +31,19 @@ function App() {
     <div className="App">
       <Provider store={store}>
         <ThemeProvider>
-          <Tabs
-            items={items}
-            selectedValue={selectedTab}
-            onChange={onTabChange}
-          />
+          <Box>
+            <Tabs
+              items={items}
+              selectedValue={selectedTab}
+              onChange={onTabChange}
+            />
+          </Box>
 
-          {items[0].value === selectedTab && <ShareForm />}
-          <Users />
-          <AllowancePopulateAction />
+          <Box>
+            {items[0].value === selectedTab && <AllowanceForm />}
+            {items[1].value === selectedTab && <div>Tabelka</div>}
+            {items[2].value === selectedTab && <TransferForm />}
+          </Box>
         </ThemeProvider>
       </Provider>
     </div>
