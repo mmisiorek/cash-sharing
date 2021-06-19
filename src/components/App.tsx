@@ -59,7 +59,6 @@ function App() {
             {items[1].value === selectedTab && <AllowancesView />}
             {items[2].value === selectedTab && <TransferForm />}
           </Box>
-          <AllowancePopulateAction />
         </ThemeProvider>
       </Provider>
     </div>

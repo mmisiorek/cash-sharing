@@ -89,25 +89,14 @@ const CreateAllowanceForm = () => {
     }
   };
 
-  const handleHowManyChange = (
-    ev: React.ChangeEvent<{ name?: string; value: unknown }>
-  ) => {
-    if (ev && ev.target && typeof ev.target.value === "string") {
-      dispatch({
-        type: "howManyRepeat",
-        payload: parseInt(ev.target.value),
-      });
-    }
-  };
-
   const handleClick = () => {
-    if (!state.user || !state.howManyRepeat || !state.days) return;
+    if (!state.user || !state.days) return;
     reduxDispatch(
       allowanceDefinitionActions.addDefinition({
         ownerId: "12",
         spenderId: state.user.id,
-        amount: state.amount,
-        cycle: state.howManyRepeat,
+        amount: state.amount          {/* <AllowancePopulateAction /> */},
+        cycle: 1,
         durationDays: state.days,
       })
     );
@@ -144,17 +133,7 @@ const CreateAllowanceForm = () => {
           variant="outlined"
         />
       </Box>
-      <Box p={2} width="100%">
-        <Typography variant="h5">Ile razy powtórzyć udostępnianie?</Typography>
-        <TextField
-          type={"number"}
-          style={{
-            width: "100%",
-          }}
-          onChange={handleHowManyChange}
-          variant="outlined"
-        />
-      </Box>
+
       <Box p={2} width="100%">
         <Button
           style={{ width: "100%" }}
