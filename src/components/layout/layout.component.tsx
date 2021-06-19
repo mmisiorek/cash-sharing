@@ -24,10 +24,9 @@ const LayoutComponent: React.FC<LayoutProps> = ({ children }) => {
     const classes = useStyles();
     return (
         <>
-            {JSON.stringify(currentUser)}
-            { !!currentUser?.id && <Headercomponent />}
-            { !currentUser?.id && <Users />}
-            { !!currentUser?.id && children}
+            { currentUser?.id && <Headercomponent />}
+            <Users />
+            { currentUser?.id && children}
             
         </>
     );

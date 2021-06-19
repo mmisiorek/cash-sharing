@@ -47,7 +47,7 @@ export const Users = () => {
         aria-haspopup="true"
         onClick={handleClick}
       >
-        {currentUser ? currentUser.name : "Select User"}
+        {currentUser?.id ? currentUser.name : "Select User"}
       </Button>
       <Menu
         anchorEl={anchorEl}

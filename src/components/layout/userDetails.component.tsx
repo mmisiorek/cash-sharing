@@ -31,12 +31,13 @@ export const UserDetails: React.FC= () => {
                 balance: 0
             },
           };
-      
+          console.log(userPayload);
           dispatch(userStateActions.addState(userPayload));
           handleClose();
     }
     return (
         <>
+            <Button>Ballance: {currentUser?.balance} PLN</Button>
             <Button
                 aria-haspopup="true"
                 onClick={handleClick}
