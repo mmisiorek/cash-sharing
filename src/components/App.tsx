@@ -13,6 +13,7 @@ import { Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core";
 import { Users } from "./Users";
 import AllowancesView from "./allowancesView/AllowancesView.component";
+import { AllowancePopulateAction } from "./AllowancePopulateAction";
 
 const useClasses = makeStyles({
   usersWrapper: {
@@ -58,6 +59,7 @@ function App() {
             {items[1].value === selectedTab && <AllowancesView />}
             {items[2].value === selectedTab && <TransferForm />}
           </Box>
+          <AllowancePopulateAction />
         </ThemeProvider>
       </Provider>
     </div>

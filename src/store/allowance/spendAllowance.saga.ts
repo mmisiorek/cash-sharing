@@ -5,6 +5,7 @@ import { userActions } from '../users';
 import { AllowanceSpend, AllowanceState} from './allowance.types'
 import { selectAllowanceByIdSelector } from './allowanceSelector';
 import { allowanceStateActions } from './allowanceState.slice';
+import { selectActiveUser } from '../user/userState.selector'
 
 export function* spendAllowanceSaga(
   action: PayloadAction<AllowanceSpend>,
@@ -12,23 +13,24 @@ export function* spendAllowanceSaga(
   const { id, amount: amountSpend } = action.payload
   const selectAllowanceById = yield* select(selectAllowanceByIdSelector)
   const allowanceState = selectAllowanceById(id) as AllowanceState
-  // const user = yield* select(usersSelector)
+  const user = yield* select(selectActiveUser)
 
   const {
     amountLeft,
   } = allowanceState
 
-  if(amountLeft - amountSpend > 0) {
+  if(amountLeft - amountSpend > 0 && user !== null) {
     const updatedAllowanceState = {
       ...allowanceState,
       amountLeft: amountLeft - amountSpend
     }
-    // const updatedUser = {
-    //   ...user,
-    //   balance: user.balance - amountSpend,
-    // }
+
+    const updatedUser = {
+      ...user,
+      balance: user.balance - amountSpend,
+    }
     yield* put(allowanceStateActions.updateState(updatedAllowanceState))
-    // yield* put(userActions.updateBalance())
+    yield* put(userActions.updateBalance(updatedUser))
   } else {
     console.log('Not allowed')
   }
