@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 
-import clsx from "clsx";
-
-import { Box, Button, TextField, Typography } from "@material-ui/core";
+import { Box, TextField, Typography } from "@material-ui/core";
 
 import { getInputValue } from "../transferForm/TransferForm.utils";
 import { useEffect } from "react";

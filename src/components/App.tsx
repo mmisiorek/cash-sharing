@@ -54,7 +54,7 @@ function App() {
             />
           </Box>
 
-          <Box px={10}>
+          <Box>
             {items[0].value === selectedTab && <CreateAllowanceForm />}
             {items[1].value === selectedTab && <AllowancesView />}
             {items[2].value === selectedTab && <TransferForm />}

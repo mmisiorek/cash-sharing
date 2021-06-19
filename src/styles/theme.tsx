@@ -126,6 +126,13 @@ const theme = createMuiTheme({
         boxShadow: "0px 4px 4px #ECECF0",
       },
     },
+    MuiSelect: {
+      select: {
+        "&:focus": {
+          backgroundColor: "#F7F8F9",
+        },
+      },
+    },
     MuiPaper: {
       rounded: {
         borderRadius: 8,
