@@ -1,57 +1,51 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+
+import {
+  selectAllowanceActiveUser,
+  selectOwnerByAllowanceState,
+  selectSharingActiveUser,
+  sharingDefinitionByUserId,
+  selectAllowanceDefinitionByUserId,
+  selectCurrentUserShareUsers,selectCurrentUserAllowanceUsers2
+} from "../../store/allowance/allowanceSelector";
+import { allowanceStateActions } from "../../store/allowance/allowanceState.slice";
+import { selectActiveUser } from "../../store/user/userState.selector";
+
 
 import Typography from "@material-ui/core/Typography";
+
+import { Box } from "@material-ui/core";
 import AllowancesTable, {
   AllowanceTableDataRow,
 } from "../tables/allowancesTable/AllowancesTable.component";
-import { Box } from "@material-ui/core";
+import { current } from "@reduxjs/toolkit";
+import TransferCode from "../transferCode/transferCode.component";
 
 const AllowancesView = () => {
-  const allowances: AllowanceTableDataRow[] = [
-    {
-      userName: "User1",
-      amountLeft: "100",
-      expireDate: 1624110137,
-    },
-    {
-      userName: "User2",
-      amountLeft: "100",
-      expireDate: 1624110137,
-    },
-    {
-      userName: "User3",
-      amountLeft: "100",
-      expireDate: 1624110137,
-    },
-    {
-      userName: "User4",
-      amountLeft: "100",
-      expireDate: 1624110137,
-    },
-  ];
+  const currentUser = useSelector(selectActiveUser);
+  const definitionsSharing = useSelector(selectAllowanceDefinitionByUserId)(currentUser.id)
+  console.log(`definitionsSharing ${definitionsSharing}`)
+const selectSharingUser = useSelector(selectCurrentUserShareUsers)
+const selectAllowance= useSelector(selectCurrentUserAllowanceUsers2)
 
-  const sharings: AllowanceTableDataRow[] = [
-    {
-      userName: "User1",
-      amountLeft: "100",
-      expireDate: 1624110137,
-    },
-    {
-      userName: "User2",
-      amountLeft: "100",
-      expireDate: 1624110137,
-    },
-    {
-      userName: "User3",
-      amountLeft: "100",
-      expireDate: 1624110137,
-    },
-    {
-      userName: "User4",
-      amountLeft: "100",
-      expireDate: 1624110137,
-    },
-  ];
+  const sharings = useSelector(selectSharingActiveUser).map((u) => {
+    console.log(`sharings are ${u.definitionId}`)
+    return {
+      userName:selectSharingUser(u.definitionId)[0]?.name,
+      expireDate: u.expireDate.toString(),
+      amountLeft: u.amountLeft.toString()
+    };
+  });
+  const allowances = useSelector(selectAllowanceActiveUser).map((u) => {
+
+    return {
+      userName:selectAllowance(u.definitionId)[0]?.name,
+      expireDate: u.expireDate.toString(),
+      amountLeft: u.amountLeft.toString()
+    }
+  });
+
 
   return (
     <Box pt={5} px={2}>

@@ -4,7 +4,7 @@ import { Provider } from "react-redux";
 import { mainSaga } from "../saga";
 import { sagaMiddleware, store } from "../store";
 import { ThemeProvider } from "../styles/theme";
-
+import {Users } from './Users'
 import Tabs from "./tabs/tabs.component";
 
 import TransferForm from "./transferForm/TransferForm.component";
@@ -13,7 +13,6 @@ import { Box } from "@material-ui/core";
 import AllowancesView from "./allowancesView/AllowancesView.component";
 
 import LayoutComponent from "./layout/layout.component";
-import TransferCode from "./transferCode/transferCode.component";
 
 function App() {
   useEffect(() => {
@@ -48,7 +47,6 @@ function App() {
               {items[1].value === selectedTab && <AllowancesView />}
               {items[2].value === selectedTab && <TransferForm />}
             </Box>
-            <TransferCode />
           </LayoutComponent>
         </ThemeProvider>
       </Provider>
