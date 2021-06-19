@@ -1,7 +1,7 @@
 import React from 'react'
 
 import Typography from "@material-ui/core/Typography";
-import AllowancesTable, { AllowanceTableDataRow } from "../AllowancesTable";
+import AllowancesTable, { AllowanceTableDataRow } from "../allowancesTable/AllowancesTable.component";
 
 const AllowancesView = () => {
     const allowances: AllowanceTableDataRow[] = [
