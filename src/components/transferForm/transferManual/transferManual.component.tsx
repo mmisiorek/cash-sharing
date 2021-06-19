@@ -58,15 +58,22 @@ const TransferManual: React.FC<any> = () => {
         <Input value={value} onChange={(val) => setValue(val)} label="Kwota" />
       </Box>
 
-      <Box pt={2} width="100%" display="flex" justifyContent="center">
-        <Button color="primary" variant="contained" onClick={onClick}>
+      <Box pt={2} width="100%">
+        <Button
+          style={{ width: "100%" }}
+          color="primary"
+          variant="contained"
+          onClick={onClick}
+        >
           Dodaj odbiorce
         </Button>
       </Box>
 
-      <Box pt={2}>
-        <TransferTable rows={rows} />
-      </Box>
+      {rows && rows.length > 0 && (
+        <Box pt={2}>
+          <TransferTable rows={rows} />
+        </Box>
+      )}
     </Box>
   );
 };
