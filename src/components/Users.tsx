@@ -23,7 +23,7 @@ const useStyles = makeStyles({
   },
   root: {
     maxWidth: 345,
-    margin: "calc(50vh - 175px) auto"
+    margin: "20px auto"
   },
   media: {
     height: 0,
@@ -75,7 +75,11 @@ export const Users = () => {
           />
           <CardContent>
             <Typography variant="body2" color="textSecondary" component="p">
-              Project description
+            Kolejny raz zapomniałeś oddać znajomemu za obiad? Zostajesz po wakacjach z toną wspólnych rachunków? Starsi sąsiedzi po dostarczonych zakupach kolejny raz mają problem z wygenerowaniem przelewu? Nigdy więcej!<br/>
+Nasz projekt opisuje implementacje przyjemnej i innowacyjnej opcji dzielenia się swoim rachunkiem do pewnej limitowanej wartości na określony czas.<br/>
+Wybierz znajomego/ych<br/>
+Ustaw kwotę<br/>
+Ciesz się życiem!
             </Typography>
           </CardContent>
           <CardActions disableSpacing>
