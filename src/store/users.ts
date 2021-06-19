@@ -34,14 +34,7 @@ const initialState = {
       id: "510298100",
       name: "Roger Skrzypczyk",
       balance: 100.5,
-      allowances: [
-        {
-          receiverId: "487123123",
-          amount: 50,
-          startDate: currentDate,
-          expireDate: addDays(currentDate, 7),
-        },
-      ],
+      allowances: [],
     },
     {
       id: "810291029",
