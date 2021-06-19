@@ -12,16 +12,17 @@ import CreateAllowanceFormComponent from "./createAllowanceForm/CreateAllowanceF
 import { Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core";
 import { Users } from "./Users";
+import { UserView } from "./UserView";
 
 const useClasses = makeStyles({
   usersWrapper: {
-    display: 'flex',
-    justifyContent: 'flex-end'
-  }
-})
+    display: "flex",
+    justifyContent: "flex-end",
+  },
+});
 
 function App() {
-  const classes = useClasses()
+  const classes = useClasses();
 
   useEffect(() => {
     sagaMiddleware.run(mainSaga);
@@ -52,9 +53,9 @@ function App() {
             />
           </Box>
 
-          <Box>
+          <Box paddingX={4}>
             {items[0].value === selectedTab && <CreateAllowanceFormComponent />}
-            {items[1].value === selectedTab && <div>Tabelka</div>}
+            {items[1].value === selectedTab && <UserView />}
             {items[2].value === selectedTab && <TransferForm />}
           </Box>
         </ThemeProvider>
