@@ -6,8 +6,8 @@ import { getInputValue } from "../TransferForm.utils";
 import UserSelector from "../../userSelector/userSelector.component";
 
 import TransferTable from "../../tables/transferTable/TransferTable.component";
-import { useSelector } from "react-redux";
-import { usersSelector } from "../../../store/selectors";
+
+import { UserType } from "../../../store/users";
 
 const TransferManual: React.FC<any> = () => {
   const [rows, setRows] = useState<
@@ -19,7 +19,7 @@ const TransferManual: React.FC<any> = () => {
   >([]);
   const [user, setUser] = useState("");
   const [value, setValue] = useState("");
-  const users = useSelector(usersSelector);
+
   const valueChangeHandler = (
     event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
   ): void => {
@@ -30,11 +30,9 @@ const TransferManual: React.FC<any> = () => {
     }
   };
 
-  const onUserChange = (value: string) => {
-    const selectedUser = users.find((x) => x.id === value);
-
-    if (selectedUser) {
-      setUser(selectedUser.name);
+  const onUserChange = (user: UserType) => {
+    if (user) {
+      setUser(user.name);
     }
   };
 
