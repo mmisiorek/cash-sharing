@@ -21,6 +21,7 @@ interface CreateAllowanceFormFields {
   amount: number;
   days?: number;
   howManyRepeat?: number;
+  error?: string;
 }
 
 type CreateAllowanceFormActionUser = {
@@ -33,9 +34,20 @@ type CreateAllowanceFormActionNumber = {
   payload: number;
 };
 
+type CreateAllowanceFormActionString = {
+  type: "error",
+  payload: string;
+}
+
+type CreateAllowanceFormActionRemoveError = {
+  type: "removeError"
+}
+
 type CreateAllowanceFormAction =
   | CreateAllowanceFormActionUser
-  | CreateAllowanceFormActionNumber;
+  | CreateAllowanceFormActionNumber
+  | CreateAllowanceFormActionString
+  | CreateAllowanceFormActionRemoveError;
 
 const initState: CreateAllowanceFormFields = {
   user: null,
@@ -46,6 +58,11 @@ function reducer(
   state: CreateAllowanceFormFields,
   action: CreateAllowanceFormAction
 ): CreateAllowanceFormFields {
+  if (action.type == "removeError") {
+    const { error, ...rest } = state
+    return rest
+  }
+
   return {
     ...state,
     [action.type]: action.payload,
@@ -58,7 +75,7 @@ const CreateAllowanceForm = () => {
   const activeUser = useSelector(selectActiveUser);
   const reduxDispatch = useDispatch<StoreDispatch>();
 
-const currentUser = useSelector(selectActiveUser)
+  const currentUser = useSelector(selectActiveUser)
   const [showAlarm, setShowAlarm] = useState(false);
 
   const handleUserChange = (user: UserType) => {
@@ -72,10 +89,21 @@ const currentUser = useSelector(selectActiveUser)
     ev: React.ChangeEvent<{ name?: string; value: unknown }>
   ) => {
     if (ev && ev.target && typeof ev.target.value === "string") {
-      dispatch({
-        type: "amount",
-        payload: parseInt(ev.target.value),
-      });
+      const value = parseInt(ev.target.value)
+      if (value > currentUser.balance) {
+        dispatch({
+          type: "error",
+          payload: "Przekracza balans użytkownika"
+        })
+      } else {
+        dispatch({
+          type: "amount",
+          payload: value,
+        });
+        dispatch({
+          type: "removeError"
+        })
+      }
     }
   };
 
@@ -122,6 +150,9 @@ const currentUser = useSelector(selectActiveUser)
           onChange={handleAmountChange}
           variant="outlined"
         />
+        {state.error && <Typography color="error">
+          {state.error}
+        </Typography>}
       </Box>
       <Box p={2} width="100%">
         <Typography variant="h5">Na ile dni udostępnić środki?</Typography>
@@ -138,6 +169,7 @@ const currentUser = useSelector(selectActiveUser)
       <Box p={2} width="100%">
         <Button
           style={{ width: "100%" }}
+          disabled={!!state.error}
           color="primary"
           variant="contained"
           onClick={handleClick}

@@ -103,7 +103,7 @@ const TransferManual: React.FC<ITransferManual> = ({ onGenerateCode }) => {
 
       <Box pt={2} width="100%">
         <Button
-          disabled={!user || value === ""}
+          disabled={!user || value === "" || error}
           style={{ width: "100%" }}
           color="primary"
           variant="contained"
@@ -123,7 +123,7 @@ const TransferManual: React.FC<ITransferManual> = ({ onGenerateCode }) => {
               variant="contained"
               onClick={onGenerateCode}
             >
-              Generate transfer code
+              Generuj kod transferu
             </Button>
           </Box>
         </Box>
