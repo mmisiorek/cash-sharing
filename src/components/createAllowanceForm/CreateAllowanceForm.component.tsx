@@ -4,8 +4,6 @@ import Box from '@material-ui/core/Box'
 import TextField from "@material-ui/core/TextField"
 import {makeStyles, Typography} from "@material-ui/core";
 
-import { usersSelector } from "../../store/selectors";
-import { useSelector } from "react-redux";
 import UserSelector from "../userSelector/userSelector.component";
 import {useTheme} from "@material-ui/core/styles";
 
@@ -17,7 +15,6 @@ const useClasses = makeStyles(() => ({
 
 const CreateAllowanceForm = () => {
     const { palette } = useTheme();
-    const users = useSelector(usersSelector)
     const classes = useClasses()
 
     return (
@@ -26,11 +23,10 @@ const CreateAllowanceForm = () => {
                 <UserSelector />
             </Box>
             <Box p={2} bgcolor={palette.secondary.main} width="100%">
-                <Typography variant="h5">Użytkownik</Typography>
+                <Typography variant="h5">Kwota</Typography>
                 <TextField
                     className={classes.textField}
-                    label="amount"
-                    placeholder={"Amount"} />
+                    variant="outlined" />
             </Box>
         </Box>
     )
