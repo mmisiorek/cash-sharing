@@ -1,12 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { Provider } from "react-redux";
-import { store } from "../store";
+import { mainSaga } from "../saga";
+import { sagaMiddleware, store } from "../store";
 import { ThemeProvider } from "../styles/theme";
 import ShareForm from "./shareForm/ShareForm.component";
 import Tabs from "./tabs/tabs.component";
+import { Users } from "./Users";
+import { AllowancePopulateAction } from "./AllowancePopulateAction";
 
 function App() {
+  useEffect(() => {
+    sagaMiddleware.run(mainSaga);
+  }, []);
   const items = [
     { label: "Wprowadź wartości ręcznie", value: "1" },
     { label: "Wylicz wartości automatycznie", value: "2" },
@@ -27,6 +33,8 @@ function App() {
           />
 
           {items[0].value === selectedTab && <ShareForm />}
+          <Users />
+          <AllowancePopulateAction />
         </ThemeProvider>
       </Provider>
     </div>
