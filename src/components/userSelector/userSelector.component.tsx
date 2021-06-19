@@ -8,12 +8,14 @@ import { useSelector } from "react-redux";
 import { Typography } from "@material-ui/core";
 import { useTheme } from "@material-ui/core/styles";
 import { UserType } from "../../store/users";
+import { useStyles } from "./userSelector.styles";
 
 type UserSelectorProps = {
-    onChange?: (user: UserType) => void
-}
+  onChange?: (user: UserType) => void;
+};
 
 const UserSelector: React.FC<UserSelectorProps> = ({ onChange }) => {
+  const classes = useStyles();
   const { palette } = useTheme();
   const users: UserType[] = useSelector(usersSelector);
   const [selectedUserName, setSelectedUserName] = useState(users[0].name);
@@ -22,12 +24,12 @@ const UserSelector: React.FC<UserSelectorProps> = ({ onChange }) => {
     ev: React.ChangeEvent<{ name?: string; value: unknown }>
   ) => {
     if (ev && ev.target && typeof ev.target.value == "string") {
-        setSelectedUserName(ev.target.value);
+      setSelectedUserName(ev.target.value);
 
-        const user = users.find((u) => u.id == ev.target.value)
-        if(user) {
-            onChange?.(user)
-        }
+      const user = users.find((u) => u.id === ev.target.value);
+      if (user) {
+        onChange?.(user);
+      }
     }
   };
 
@@ -35,8 +37,8 @@ const UserSelector: React.FC<UserSelectorProps> = ({ onChange }) => {
     <Box width="100%">
       <Typography variant="h5">Użytkownik</Typography>
       <Select
-        style={{ width: "100%", backgroundColor: palette.background.default }}
-        variant="filled"
+        className={classes.test}
+        variant="outlined"
         value={selectedUserName}
         onChange={handleUserChange}
       >
