@@ -95,7 +95,7 @@ const CreateAllowanceForm = () => {
       allowanceDefinitionActions.addDefinition({
         ownerId: "12",
         spenderId: state.user.id,
-        amount: state.amount          {/* <AllowancePopulateAction /> */},
+        amount: state.amount,
         cycle: 1,
         durationDays: state.days,
       })
