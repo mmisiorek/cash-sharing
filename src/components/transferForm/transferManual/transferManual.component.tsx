@@ -5,7 +5,19 @@ import { Box, Button, TextField, Typography } from "@material-ui/core";
 import { getInputValue } from "../TransferForm.utils";
 import UserSelector from "../../userSelector/userSelector.component";
 
+import TransferTable from "../../tables/transferTable/TransferTable.component";
+
+import { UserType } from "../../../store/users";
+
 const TransferManual: React.FC<any> = () => {
+  const [rows, setRows] = useState<
+    {
+      userName: string;
+      totalAmount: string;
+      amountUsed: string;
+    }[]
+  >([]);
+  const [user, setUser] = useState("");
   const [value, setValue] = useState("");
 
   const valueChangeHandler = (
@@ -18,12 +30,29 @@ const TransferManual: React.FC<any> = () => {
     }
   };
 
-  const onClick = () => {};
+  const onUserChange = (user: UserType) => {
+    if (user) {
+      setUser(user.name);
+    }
+  };
+
+  const onClick = () => {
+    if (user && user !== "" && value !== "") {
+      setRows([
+        ...rows,
+        {
+          userName: user,
+          totalAmount: value,
+          amountUsed: value,
+        },
+      ]);
+    }
+  };
 
   return (
     <Box pt={2}>
       <Box width="100%" pt={2} pb={2}>
-        <UserSelector />
+        <UserSelector onChange={onUserChange} />
       </Box>
 
       <Box pt={2}>
@@ -43,6 +72,10 @@ const TransferManual: React.FC<any> = () => {
         <Button color="primary" variant="contained" onClick={onClick}>
           Dodaj odbiorce
         </Button>
+      </Box>
+
+      <Box pt={2}>
+        <TransferTable rows={rows} />
       </Box>
     </Box>
   );

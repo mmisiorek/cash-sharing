@@ -15,7 +15,7 @@ export const userSlice = createSlice({
   name: "User",
   reducers: {
     addState: (state,  action: PayloadAction<UserStateType>) => {
-     userStateAdapter.addOne(state, action.payload.user)
+     userStateAdapter.setAll(state, action.payload)
     },
     updateBalance: (state,  action: PayloadAction<UserType>) => {
       const {id, ...changes} = action.payload
