@@ -42,13 +42,14 @@ export const Users = () => {
 
   return (
     <>
-      <Button
+      {!currentUser?.id && (<Button
         aria-controls="simple-menu"
         aria-haspopup="true"
         onClick={handleClick}
       >
-        {currentUser?.id ? currentUser.name : "Select User"}
+        Select User
       </Button>
+      )}
       <Menu
         anchorEl={anchorEl}
         keepMounted

@@ -4,19 +4,17 @@ import { makeStyles } from "@material-ui/core/styles";
 import { UserDetails } from "./userDetails.component";
 
 const useStyles = makeStyles({
-  usersWrapper: {
+  header: {
+    padding: 8,
+    background: "white",
     display: "flex",
-    justifyContent: "flex-end",
+    justifyContent: "space-between",
+    borderBottom: "1px solid #001E4B",
   },
   logo: {
     width: "auto",
-    height: 40
+    height: 48,
   },
-  header: {
-    background: "white",
-    flexWrap: "wrap"
-
-  }
 });
 export const Headercomponent: React.FC= () => {
     const classes = useStyles();
@@ -24,10 +22,8 @@ export const Headercomponent: React.FC= () => {
         <>
           <div className={classes.header}>
             <img className={classes.logo} src={mainLogo} alt="cash-sharing"/>
-            <div className={classes.usersWrapper}>
-                <UserDetails />
-              </div>
-            </div>
+            <UserDetails />
+          </div>
         </>
     );
 };
