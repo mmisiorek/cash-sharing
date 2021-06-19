@@ -11,8 +11,8 @@ export function* addAllowanceDefinitionSaga(
 ): Generator {
   const allowanceDefinitionData = action.payload
   const allowanceExecution: AllowanceExecution = {
-    durationDays: 2,
-    cycle: 2,
+    durationDays: action.payload.durationDays,
+    cycle: action.payload.cycle,
   }
 
   const id = crypto.randomBytes(16).toString('hex')

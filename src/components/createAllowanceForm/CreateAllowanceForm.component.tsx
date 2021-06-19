@@ -5,9 +5,16 @@ import TextField from "@material-ui/core/TextField"
 import {makeStyles, Typography} from "@material-ui/core";
 import Button from "@material-ui/core/Button"
 
+import { useDispatch } from "react-redux";
+import { StoreDispatch } from "../../store/index.types";
+
+
 import UserSelector from "../userSelector/userSelector.component";
 import { useTheme } from "@material-ui/core/styles";
 import {UserType} from "../../store/users";
+
+import { allowanceDefinitionActions } from '../../store/allowance/allowanceDefinition.slice'
+import { current } from '@reduxjs/toolkit';
 
 interface CreateAllowanceFormFields {
     user: UserType | null,
@@ -54,6 +61,7 @@ const CreateAllowanceForm = () => {
     const { palette } = useTheme();
     const classes = useClasses()
     const [state, dispatch] = useReducer(reducer, initState)
+    const reduxDispatch = useDispatch<StoreDispatch>()
 
     const handleUserChange = (user: UserType) => {
         dispatch({
@@ -91,6 +99,16 @@ const CreateAllowanceForm = () => {
 
     const handleClick = () => {
         console.log(state)
+        if (!state.user || !state.howManyRepeat || !state.days) return
+        reduxDispatch(
+            allowanceDefinitionActions.addDefinition({
+                ownerId:'12',
+                spenderId: state.user.id,
+                amount: state.amount,
+                cycle: state.howManyRepeat,
+                durationDays: state.days
+            }),
+        )
     }
 
     return (
