@@ -5,6 +5,7 @@ import AllowancesTable, {
   AllowanceTableDataRow,
 } from "../tables/allowancesTable/AllowancesTable.component";
 import { Box } from "@material-ui/core";
+import TransferCode from "../transferCode/transferCode.component";
 
 const AllowancesView = () => {
   const allowances: AllowanceTableDataRow[] = [
@@ -54,20 +55,24 @@ const AllowancesView = () => {
   ];
 
   return (
-    <Box pt={5} px={2}>
-      <Typography variant="h2">Środki Dostępne</Typography>
-      <Box pt={5}>
-        <AllowancesTable allowanceTableDataRows={allowances} />
-      </Box>
-
-      <Box pt={5}>
-        <Typography variant="h2">Środki Udostępnione</Typography>
+    <>
+      <Box pt={5}  px={2}>
+        <Typography variant="h2">Środki Dostępne</Typography>
+        <Box pt={5}>
+          <AllowancesTable allowanceTableDataRows={allowances} />
+        </Box>
 
         <Box pt={5}>
-          <AllowancesTable allowanceTableDataRows={sharings} />
+          <Typography variant="h2">Środki Udostępnione</Typography>
+
+          <Box pt={5}>
+            <AllowancesTable allowanceTableDataRows={sharings} />
+          </Box>
         </Box>
       </Box>
-    </Box>
+      <TransferCode />
+    </>
+
   );
 };
 
