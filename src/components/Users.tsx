@@ -5,15 +5,18 @@ import MenuItem from "@material-ui/core/MenuItem";
 
 import { useSelector } from "react-redux";
 import { usersSelector } from "../store/selectors";
+import { Box } from "@material-ui/core";
 
 export const Users = () => {
   const users = useSelector(usersSelector);
 
   return (
-    <Select>
-      {users.map((user) => (
-        <MenuItem>{user.name}</MenuItem>
-      ))}
-    </Select>
+    <Box width="100%">
+      <Select>
+        {users.map((user) => (
+          <MenuItem>{user.name}</MenuItem>
+        ))}
+      </Select>
+    </Box>
   );
 };
