@@ -8,10 +8,10 @@ import { useSelector } from "react-redux";
 
 export const CreateAllowanceFormComponent = () => {
     const users = useSelector(usersSelector)
-    const [selectedUserName, setSelectedUserName] = useState(userNames[0])
+    const [selectedUserName, setSelectedUserName] = useState(users[0].name)
 
     const handleUserChange = (ev: React.ChangeEvent<{name ?: string, value: unknown}>) => {
-        if (ev && ev.target) {
+        if (ev && ev.target && typeof(ev.target.value) == 'string') {
             setSelectedUserName(ev.target.value)
         }
     }

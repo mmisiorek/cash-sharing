@@ -11,8 +11,18 @@ import { AllowancePopulateAction } from "./AllowancePopulateAction";
 import AllowanceForm from "./allowanceForm/AllowanceForm.component";
 import TransferForm from "./transferForm/TransferForm.component";
 import { Box } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core";
+
+const useClasses = makeStyles({
+  usersWrapper: {
+    display: 'flex',
+    justifyContent: 'flex-end'
+  }
+})
 
 function App() {
+  const classes = useClasses()
+
   useEffect(() => {
     sagaMiddleware.run(mainSaga);
   }, []);
@@ -31,6 +41,9 @@ function App() {
     <div className="App">
       <Provider store={store}>
         <ThemeProvider>
+          <div className={classes.usersWrapper}>
+            <Users />
+          </div>
           <Box>
             <Tabs
               items={items}
