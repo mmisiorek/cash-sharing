@@ -5,7 +5,7 @@ import { allowanceDefinitionActions } from '../store/allowance/allowanceDefiniti
 
 import { useDispatch, useSelector } from "react-redux";
 import { StoreDispatch } from "../store/index.types";
-import { selectAllowanceActiveUser, selectSharingActiveUser } from "../store/allowance/allowanceSelector";
+import { selectAllowanceActiveUser, selectOwnerByAllowanceState, selectSharingActiveUser } from "../store/allowance/allowanceSelector";
 import { allowanceStateActions } from "../store/allowance/allowanceState.slice";
 
 import { usersSelector } from "../store/selectors";
@@ -14,12 +14,16 @@ export const AllowancePopulateAction = () => {
   const dispatch = useDispatch<StoreDispatch>()
   const allowances = useSelector(selectAllowanceActiveUser)
   const sharing = useSelector(selectSharingActiveUser)
+
+  const allowanceUsers = useSelector(selectOwnerByAllowanceState)
+
+  console.log('allowanceUsers', allowanceUsers)
   
   const users = useSelector(usersSelector)
 
   const userSpender = users[0].id
   const userOwner = users[1].id
-  
+
   const handleAddAllowanceDefinition = () => {
     dispatch(
         allowanceDefinitionActions.addDefinition({

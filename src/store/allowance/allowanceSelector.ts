@@ -6,6 +6,7 @@ import { allowanceDefinitionAdapter } from './allowanceDefinition.slice'
 import { getDays } from './populateAllowanceState.saga'
 import { AllowanceState } from './allowance.types'
 import { selectActiveUser } from '../user/userState.selector'
+import { usersSelector } from '../selectors'
 
 export const allowanceStateList = createSelector(
   selectReducer(StoreKeys.AllowanceState),
@@ -58,6 +59,21 @@ export const selectAllowanceActiveUser = createSelector(
     }, [] as AllowanceState[])
   }
 )
+
+export const selectUsersAllowance = createSelector(
+  [selectAllowanceActiveUser, usersSelector],
+  (allowanceActiveUser) => (ownerId: string) => allowanceActiveUser.filter(({ id }) => id === ownerId)
+)
+
+
+export const selectOwnerByAllowanceState = createSelector(
+  [allowanceDefinitionList, selectAllowanceActiveUser], (allowanceDefinitionList, allowances) => {
+    return allowanceDefinitionList.filter(
+      allowanceDefinition => allowances
+      .map(({ definitionId }) => definitionId).includes(allowanceDefinition.id))
+  }
+)
+
 
 export const selectActiveAllowanceStateByOwnerId = createSelector(
   [selectAllowanceActiveUser],
