@@ -13,12 +13,16 @@ export interface UserType {
   id: string;
   name: string;
   balance: number;
-  allowances: Array<AllowanceState['id']>;
+  allowances: Array<AllowanceState["id"]>;
 }
 
 export type UsersStateType = {
   users: UserType[];
 };
+
+export type UserStateType = {
+  user: UserType|null;
+}
 
 const initialState: UsersStateType = {
   users: [
@@ -48,13 +52,13 @@ const initialState: UsersStateType = {
     },
   ],
 };
-export const userAdapter = createEntityAdapter<UserType>()
+export const userAdapter = createEntityAdapter<UserType>();
 
-const userSliceState = userAdapter.getInitialState(initialState)
+const userSliceState = userAdapter.getInitialState(initialState);
 
-export const userSlice = createSlice({
+export const usersSlice = createSlice({
   initialState: userSliceState,
-  name: "User",
+  name: "Users",
   reducers: {
     updateBalance: (state,  action: PayloadAction<UserType>) => {
       const {id, ...changes} = action.payload
@@ -67,7 +71,7 @@ export const userSlice = createSlice({
       return state
     },
   },
-})
+});
 
-export const userActions = userSlice.actions
-export const userReducer = userSlice.reducer
+export const userActions = usersSlice.actions;
+export const userReducer = usersSlice.reducer;

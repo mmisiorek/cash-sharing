@@ -2,8 +2,8 @@ import React, { useState } from "react";
 
 import { Box, Button, TextField, Typography } from "@material-ui/core";
 
-import { Users } from "../../Users";
 import { getInputValue } from "../TransferForm.utils";
+import UserSelector from "../../userSelector/userSelector.component";
 
 const TransferManual: React.FC<any> = () => {
   const [value, setValue] = useState("");
@@ -18,17 +18,20 @@ const TransferManual: React.FC<any> = () => {
     }
   };
 
+  const onClick = () => {};
+
   return (
-    <Box>
+    <Box pt={2}>
       <Box width="100%" pt={2} pb={2}>
-        <Users />
+        <UserSelector />
       </Box>
 
-      <Box pt={2} display="flex" width="100%" justifyContent="center">
+      <Box pt={2}>
         <Box>
-          <Typography variant="h4">Całkowita kwota</Typography>
-          <Typography color="textSecondary">Podaj kwotę</Typography>
+          <Typography variant="h5">Całkowita kwota</Typography>
+
           <TextField
+            style={{ width: "100%" }}
             value={value}
             onChange={valueChangeHandler}
             variant="outlined"
@@ -37,7 +40,7 @@ const TransferManual: React.FC<any> = () => {
       </Box>
 
       <Box pt={2} width="100%" display="flex" justifyContent="center">
-        <Button color="primary" variant="contained">
+        <Button color="primary" variant="contained" onClick={onClick}>
           Dodaj odbiorce
         </Button>
       </Box>
