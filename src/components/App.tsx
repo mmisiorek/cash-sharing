@@ -10,14 +10,12 @@ import Tabs from "./tabs/tabs.component";
 import TransferForm from "./transferForm/TransferForm.component";
 import CreateAllowanceForm from "./createAllowanceForm/CreateAllowanceForm.component";
 import { Box } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core";
-import { Users } from "./Users";
+
 import AllowancesView from "./allowancesView/AllowancesView.component";
-import { AllowancePopulateAction } from "./AllowancePopulateAction";
+
 import LayoutComponent from "./layout/layout.component";
 
 function App() {
-
   useEffect(() => {
     sagaMiddleware.run(mainSaga);
   }, []);
@@ -37,7 +35,6 @@ function App() {
       <Provider store={store}>
         <ThemeProvider>
           <LayoutComponent>
-
             <Box>
               <Tabs
                 items={items}
@@ -51,7 +48,6 @@ function App() {
               {items[1].value === selectedTab && <AllowancesView />}
               {items[2].value === selectedTab && <TransferForm />}
             </Box>
-            <AllowancePopulateAction />
           </LayoutComponent>
         </ThemeProvider>
       </Provider>
