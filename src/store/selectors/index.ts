@@ -13,3 +13,8 @@ export const usersSelector = createSelector(
   selectReducer(StoreKeys.Users),
   (reducerState) => reducerState.users
 );
+
+export const userSelector = createSelector(
+  selectReducer(StoreKeys.User),
+  (reducerState) => reducerState
+);

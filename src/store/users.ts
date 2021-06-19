@@ -16,6 +16,10 @@ export type UsersStateType = {
   users: UserType[];
 };
 
+export type UserStateType = {
+  user: UserType|null;
+}
+
 const initialState: UsersStateType = {
   users: [
     {
@@ -48,9 +52,9 @@ export const userAdapter = createEntityAdapter<UserType>();
 
 const userSliceState = userAdapter.getInitialState(initialState);
 
-export const userSlice = createSlice({
+export const usersSlice = createSlice({
   initialState: userSliceState,
-  name: "User",
+  name: "Users",
   reducers: {
     updateBalance: (state, action: PayloadAction<number>) => {
       const balance = action.payload;
@@ -59,5 +63,5 @@ export const userSlice = createSlice({
   },
 });
 
-export const userActions = userSlice.actions;
-export const userReducer = userSlice.reducer;
+export const userActions = usersSlice.actions;
+export const userReducer = usersSlice.reducer;
