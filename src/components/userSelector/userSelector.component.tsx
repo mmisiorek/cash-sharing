@@ -10,7 +10,7 @@ import { useTheme } from "@material-ui/core/styles";
 import { UserType } from "../../store/users";
 
 type UserSelectorProps = {
-    onChange: (user: UserType) => void
+    onChange?: (user: UserType) => void
 }
 
 const UserSelector: React.FC<UserSelectorProps> = ({ onChange }) => {

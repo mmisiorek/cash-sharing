@@ -7,6 +7,7 @@ import {makeStyles, Typography} from "@material-ui/core";
 import { usersSelector } from "../../store/selectors";
 import { useSelector } from "react-redux";
 import UserSelector from "../userSelector/userSelector.component";
+import {useTheme} from "@material-ui/core/styles";
 
 const useClasses = makeStyles(() => ({
     textField: {
@@ -15,6 +16,7 @@ const useClasses = makeStyles(() => ({
 }))
 
 const CreateAllowanceForm = () => {
+    const { palette } = useTheme();
     const users = useSelector(usersSelector)
     const classes = useClasses()
 
