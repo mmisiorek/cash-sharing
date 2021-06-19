@@ -2,14 +2,14 @@ import {
   createSlice,
   createEntityAdapter,
   PayloadAction,
-} from '@reduxjs/toolkit'
-import { AllowanceState } from './allowance/allowance.types'
+} from "@reduxjs/toolkit";
+import { AllowanceState } from "./allowance/allowance.types";
 
 export interface UserType {
   id: string;
   name: string;
   balance: number;
-  allowances: Array<AllowanceState['id']>;
+  allowances: Array<AllowanceState["id"]>;
 }
 
 export type UsersStateType = {
@@ -44,20 +44,20 @@ const initialState: UsersStateType = {
     },
   ],
 };
-export const userAdapter = createEntityAdapter<UserType>()
+export const userAdapter = createEntityAdapter<UserType>();
 
-const userSliceState = userAdapter.getInitialState(initialState)
+const userSliceState = userAdapter.getInitialState(initialState);
 
 export const userSlice = createSlice({
   initialState: userSliceState,
   name: "User",
   reducers: {
-    updateBalance: (state,  action: PayloadAction<number>) => {
-      const balance = action.payload
-      return state
+    updateBalance: (state, action: PayloadAction<number>) => {
+      const balance = action.payload;
+      return state;
     },
   },
-})
+});
 
-export const userActions = userSlice.actions
-export const userReducer = userSlice.reducer
+export const userActions = userSlice.actions;
+export const userReducer = userSlice.reducer;

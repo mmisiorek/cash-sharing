@@ -55,15 +55,15 @@ const AllowancesView = () => {
 
   return (
     <Box pt={5}>
-      <Typography variant="h3">Środki Dostępne</Typography>
-      <Box px={10} pt={5}>
+      <Typography variant="h2">Środki Dostępne</Typography>
+      <Box pt={5}>
         <AllowancesTable allowanceTableDataRows={allowances} />
       </Box>
 
       <Box pt={5}>
         <Typography variant="h3">Środki Udostępnione</Typography>
 
-        <Box px={10} pt={5}>
+        <Box pt={5}>
           <AllowancesTable allowanceTableDataRows={sharings} />
         </Box>
       </Box>

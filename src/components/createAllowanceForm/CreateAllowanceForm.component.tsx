@@ -1,22 +1,35 @@
 import React, { useState } from 'react'
 
 import Box from '@material-ui/core/Box'
-import Grid from "@material-ui/core/Grid"
 import TextField from "@material-ui/core/TextField"
+import {makeStyles, Typography} from "@material-ui/core";
 
 import { usersSelector } from "../../store/selectors";
 import { useSelector } from "react-redux";
+import UserSelector from "../userSelector/userSelector.component";
+
+const useClasses = makeStyles(() => ({
+    textField: {
+        width: '100%'
+    }
+}))
 
 const CreateAllowanceForm = () => {
     const users = useSelector(usersSelector)
+    const classes = useClasses()
 
     return (
         <Box pt={5}>
-            <div>HEre user select</div>
-            <TextField
-                label="amount"
-                placeholder={"Amount"} />
-
+            <Box p={2} bgcolor={palette.secondary.main} width="100%">
+                <UserSelector />
+            </Box>
+            <Box p={2} bgcolor={palette.secondary.main} width="100%">
+                <Typography variant="h5">Użytkownik</Typography>
+                <TextField
+                    className={classes.textField}
+                    label="amount"
+                    placeholder={"Amount"} />
+            </Box>
         </Box>
     )
 }
