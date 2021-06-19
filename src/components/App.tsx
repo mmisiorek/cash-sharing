@@ -7,10 +7,11 @@ import { ThemeProvider } from "../styles/theme";
 
 import Tabs from "./tabs/tabs.component";
 
-import AllowanceForm from "./allowanceForm/AllowanceForm.component";
 import TransferForm from "./transferForm/TransferForm.component";
+import CreateAllowanceFormComponent from "./createAllowanceForm/CreateAllowanceForm.component";
 import { Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core";
+import { Users } from "./Users";
 
 const useClasses = makeStyles({
   usersWrapper: {
@@ -52,7 +53,7 @@ function App() {
           </Box>
 
           <Box>
-            {items[0].value === selectedTab && <AllowanceForm />}
+            {items[0].value === selectedTab && <CreateAllowanceFormComponent />}
             {items[1].value === selectedTab && <div>Tabelka</div>}
             {items[2].value === selectedTab && <TransferForm />}
           </Box>
