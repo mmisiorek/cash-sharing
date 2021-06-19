@@ -8,6 +8,8 @@ import Button from "@material-ui/core/Button";
 import UserSelector from "../userSelector/userSelector.component";
 
 import { UserType } from "../../store/users";
+import { useSelector } from "react-redux";
+import { usersSelectorBesideActive } from "../../store/selectors";
 
 interface CreateAllowanceFormFields {
   user: UserType | null;
@@ -47,7 +49,7 @@ function reducer(
 
 const CreateAllowanceForm = () => {
   const [state, dispatch] = useReducer(reducer, initState);
-
+  const users = useSelector(usersSelectorBesideActive);
   const handleUserChange = (user: UserType) => {
     dispatch({
       type: "user",
@@ -95,7 +97,7 @@ const CreateAllowanceForm = () => {
   return (
     <Box pt={5}>
       <Box p={2} width="100%">
-        <UserSelector onChange={handleUserChange} />
+        <UserSelector users={users} onChange={handleUserChange} />
       </Box>
       <Box p={2} width="100%">
         <Typography variant="h5">Kwota</Typography>

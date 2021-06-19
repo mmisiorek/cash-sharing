@@ -29,7 +29,7 @@ const TransferForm: React.FC<any> = () => {
 
   return (
     <Box display="flex" justifyContent="center" pt={2}>
-      <Box p={2} bgcolor={palette.secondary.main} width="100%">
+      <Box p={2} width="100%">
         <Toggle toggles={items} onToggleChange={onToggleChange} />
 
         {selectToggle === items[0].id && <TransferManual />}

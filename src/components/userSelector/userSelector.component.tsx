@@ -3,22 +3,22 @@ import React, { useState } from "react";
 import Box from "@material-ui/core/Box";
 import Select from "@material-ui/core/Select";
 
-import { usersSelector } from "../../store/selectors";
-import { useSelector } from "react-redux";
 import { Typography } from "@material-ui/core";
-import { useTheme } from "@material-ui/core/styles";
+
 import { UserType } from "../../store/users";
 import { useStyles } from "./userSelector.styles";
 
 type UserSelectorProps = {
+  users: UserType[];
   onChange?: (user: UserType) => void;
 };
 
-const UserSelector: React.FC<UserSelectorProps> = ({ onChange }) => {
+const UserSelector: React.FC<UserSelectorProps> = ({ users, onChange }) => {
   const classes = useStyles();
-  const { palette } = useTheme();
-  const users: UserType[] = useSelector(usersSelector);
-  const [selectedUserName, setSelectedUserName] = useState(users[0].name);
+
+  const [selectedUserName, setSelectedUserName] = useState(
+    users.length > 0 ? users[0].name : null
+  );
 
   const handleUserChange = (
     ev: React.ChangeEvent<{ name?: string; value: unknown }>
