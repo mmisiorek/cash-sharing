@@ -36,8 +36,8 @@ export function* populateAllowanceStateSaga(
     for(
       var i = 0,
       startDay=getDays(currentDate),
-      expireDay = getDays(currentDate) + durationDays; 
-      i < cycle; 
+      expireDay = getDays(currentDate) + durationDays;
+      i < cycle;
       i++, startDay=startDay+durationDays, expireDay=expireDay+durationDays
     ) {
       const id = crypto.randomBytes(16).toString('hex')
@@ -48,7 +48,7 @@ export function* populateAllowanceStateSaga(
         expireDate: expireDay - 1,
         startDate: startDay,
       }
-  
+
       yield* put(allowanceStateActions.addState(allowanceState))
     }
   }
