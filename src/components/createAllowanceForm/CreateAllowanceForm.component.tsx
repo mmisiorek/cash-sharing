@@ -98,7 +98,6 @@ const CreateAllowanceForm = () => {
   };
 
   const handleClick = () => {
-    console.log(state);
     if (!state.user || !state.howManyRepeat || !state.days) return;
     reduxDispatch(
       allowanceDefinitionActions.addDefinition({

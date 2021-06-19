@@ -9,11 +9,8 @@ import TransferTable from "../../tables/transferTable/TransferTable.component";
 import { UserType } from "../../../store/users";
 import Input from "../../input/Input.component";
 import { useSelector } from "react-redux";
-// import { selectActiveUser } from "../../../store/user/userState.selector";
-import {
-  selectCurrentUserAllowanceUsers,
-  selectActiveAllowanceStateByOwnerId,
-} from "../../../store/allowance/allowanceSelector";
+
+import { selectCurrentUserAllowanceUsers } from "../../../store/allowance/allowanceSelector";
 
 const TransferManual: React.FC<any> = () => {
   const allowanceUsers = useSelector(selectCurrentUserAllowanceUsers);
@@ -27,9 +24,8 @@ const TransferManual: React.FC<any> = () => {
   >([]);
   const [user, setUser] = useState<UserType>();
 
-  const allowancesSelector = useSelector(selectActiveAllowanceStateByOwnerId);
-  const allowances = allowancesSelector(user ? user.id : "");
-  console.log(allowances);
+  // const allowancesSelector = useSelector(selectActiveAllowanceStateByOwnerId);
+  // const allowances = allowancesSelector(user ? user.id : "");
 
   const [value, setValue] = useState("");
 

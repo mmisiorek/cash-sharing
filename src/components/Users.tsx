@@ -9,24 +9,24 @@ import { UserStateType } from "../store/users";
 import { StoreDispatch } from "../store/index.types";
 
 export const Users = () => {
-  const dispatch = useDispatch<StoreDispatch>()
+  const dispatch = useDispatch<StoreDispatch>();
   const users = useSelector(usersSelector);
   const currentUser = useSelector(userSelector);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const setUser = (uid: string) => {
-    const userPayload: UserStateType = { user: users.find(user => user.id === uid) || null };
-    console.log(userPayload);
-    dispatch(
-      userStateActions.addState(userPayload)
-    );
-  }
+    const userPayload: UserStateType = {
+      user: users.find((user) => user.id === uid) || null,
+    };
+
+    dispatch(userStateActions.addState(userPayload));
+  };
   const handleClick = (event: any) => {
     setAnchorEl(event.currentTarget);
   };
 
   const handleClose = (event: any) => {
     const choosenId = event?.currentTarget?.getAttribute("data-id");
-    if(choosenId) {
+    if (choosenId) {
       setUser(choosenId);
     }
     setAnchorEl(null);
@@ -53,9 +53,7 @@ export const Users = () => {
           </MenuItem>
         ))}
       </Menu>
-      <div>
-        {JSON.stringify(currentUser.entities)}
-      </div>
+      <div>{JSON.stringify(currentUser.entities)}</div>
     </>
   );
 };
