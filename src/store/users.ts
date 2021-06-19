@@ -1,3 +1,4 @@
+import { PayloadAction } from "@reduxjs/toolkit";
 import { ActionType } from "./index.types";
 
 export interface Allowance {
@@ -19,6 +20,10 @@ export interface UserType {
 export type UsersStateType = {
   users: UserType[];
 };
+
+export type UserStateType = {
+  user: UserType|null;
+}
 
 function addDays(date: Date, days: number) {
   var result = new Date(date);
@@ -62,4 +67,24 @@ export function usersReducer(
     default:
       return state;
   }
+}
+
+
+export function userReducer(
+  state: UserStateType = { user: null },
+  action: ActionType
+): UserStateType {
+  switch (action.type) {
+    case "something":
+      return state;
+    default:
+      return state;
+  }
+}
+
+export function* currentUserSaga(
+  action: PayloadAction<UserType>,
+): Generator {
+  const currentUserData = action.payload
+  
 }
