@@ -1,37 +1,40 @@
-import { PayloadAction } from '@reduxjs/toolkit';
-import { select, put } from 'typed-redux-saga'
-import { userActions } from '../users';
+import { PayloadAction } from "@reduxjs/toolkit";
+import { select, put, call } from "typed-redux-saga";
+import { userActions } from "../users";
 
-import { AllowanceSpend, AllowanceState} from './allowance.types'
-import { selectAllowanceByIdSelector } from './allowanceSelector';
-import { allowanceStateActions } from './allowanceState.slice';
-import { selectActiveUser } from '../user/userState.selector'
+import { AllowanceSpend, AllowanceState } from "./allowance.types";
+import { selectAllowanceByIdSelector } from "./allowanceSelector";
+import { allowanceStateActions } from "./allowanceState.slice";
+import { selectActiveUser } from "../user/userState.selector";
 
 export function* spendAllowanceSaga(
-  action: PayloadAction<AllowanceSpend>,
+  action: PayloadAction<AllowanceSpend>
 ): Generator {
-  const { id, amount: amountSpend } = action.payload
-  const selectAllowanceById = yield* select(selectAllowanceByIdSelector)
-  const allowanceState = selectAllowanceById(id) as AllowanceState
-  const user = yield* select(selectActiveUser)
+  const { id, amount: amountSpend } = action.payload;
+  const selectAllowanceById = yield* select(selectAllowanceByIdSelector);
 
-  const {
-    amountLeft,
-  } = allowanceState
+  const allowanceState = (yield* call(
+    selectAllowanceById,
+    id
+  )) as AllowanceState;
+  const user = yield* select(selectActiveUser);
 
-  if(amountLeft - amountSpend > 0 && user !== null) {
+  const { amountLeft } = allowanceState;
+
+  console.log(user, amountLeft);
+  if (amountLeft - amountSpend >= 0 && user !== null) {
     const updatedAllowanceState = {
       ...allowanceState,
-      amountLeft: amountLeft - amountSpend
-    }
+      amountLeft: amountLeft - amountSpend,
+    };
 
     const updatedUser = {
       ...user,
       balance: user.balance - amountSpend,
-    }
-    yield* put(allowanceStateActions.updateState(updatedAllowanceState))
-    yield* put(userActions.updateBalance(updatedUser))
+    };
+    yield* put(allowanceStateActions.updateState(updatedAllowanceState));
+    yield* put(userActions.updateBalance(updatedUser));
   } else {
-    console.log('Not allowed')
+    console.log("Not allowed");
   }
 }
