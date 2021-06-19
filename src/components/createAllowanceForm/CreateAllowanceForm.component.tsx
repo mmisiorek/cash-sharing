@@ -16,6 +16,7 @@ import { usersSelectorBesideActive } from "../../store/selectors";
 
 import { allowanceDefinitionActions } from "../../store/allowance/allowanceDefinition.slice";
 import { Alert } from "@material-ui/lab";
+import { selectActiveUser } from "../../store/user/userState.selector";
 
 interface CreateAllowanceFormFields {
   user: UserType | null;
@@ -56,6 +57,7 @@ function reducer(
 const CreateAllowanceForm = () => {
   const [state, dispatch] = useReducer(reducer, initState);
   const users = useSelector(usersSelectorBesideActive);
+  const activeUser = useSelector(selectActiveUser);
   const reduxDispatch = useDispatch<StoreDispatch>();
 
   const [showAlarm, setShowAlarm] = useState(false);
@@ -93,7 +95,7 @@ const CreateAllowanceForm = () => {
     if (!state.user || !state.days) return;
     reduxDispatch(
       allowanceDefinitionActions.addDefinition({
-        ownerId: "12",
+        ownerId: activeUser.id,
         spenderId: state.user.id,
         amount: state.amount,
         cycle: 1,
@@ -146,8 +148,7 @@ const CreateAllowanceForm = () => {
       </Box>
       {showAlarm && (
         <Alert severity="success" color="success">
-          Kwota w wysokości 100 zł została udostępniona dla użytkownika Marcin
-          Misiorek
+          {`Kwota w wysokości ${state.amount} zł została udostępniona dla użytkownika ${state.user?.name}`}
         </Alert>
       )}
     </Box>
