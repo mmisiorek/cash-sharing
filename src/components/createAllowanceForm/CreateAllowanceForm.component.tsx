@@ -6,7 +6,6 @@ import { Typography } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { StoreDispatch } from "../../store/index.types";
-import { selectActiveUser } from "../../store/user/userState.selector";
 import UserSelector from "../userSelector/userSelector.component";
 
 import { UserType } from "../../store/users";
@@ -15,6 +14,7 @@ import { usersSelectorBesideActive } from "../../store/selectors";
 import { allowanceDefinitionActions } from "../../store/allowance/allowanceDefinition.slice";
 import { current } from "@reduxjs/toolkit";
 import { Alert } from "@material-ui/lab";
+import { selectActiveUser } from "../../store/user/userState.selector";
 
 interface CreateAllowanceFormFields {
   user: UserType | null;
@@ -55,6 +55,7 @@ function reducer(
 const CreateAllowanceForm = () => {
   const [state, dispatch] = useReducer(reducer, initState);
   const users = useSelector(usersSelectorBesideActive);
+  const activeUser = useSelector(selectActiveUser);
   const reduxDispatch = useDispatch<StoreDispatch>();
 
 const currentUser = useSelector(selectActiveUser)
@@ -93,7 +94,7 @@ const currentUser = useSelector(selectActiveUser)
     if (!state.user || !state.days) return;
     reduxDispatch(
       allowanceDefinitionActions.addDefinition({
-        ownerId: currentUser.id,
+        ownerId: activeUser.id,
         spenderId: state.user.id,
         amount: state.amount,
         cycle: 1,
@@ -146,8 +147,7 @@ const currentUser = useSelector(selectActiveUser)
       </Box>
       {showAlarm && (
         <Alert severity="success" color="success">
-          Kwota w wysokości 100 zł została udostępniona dla użytkownika Marcin
-          Misiorek
+          {`Kwota w wysokości ${state.amount} zł została udostępniona dla użytkownika ${state.user?.name}`}
         </Alert>
       )}
     </Box>

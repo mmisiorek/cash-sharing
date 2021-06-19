@@ -33,13 +33,15 @@ const AllowancesView = () => {
   console.log(definitions[0]?.spenderId);
 
   const allowances = useSelector(selectAllowanceActiveUser).map((dupa) => {
+    console.log(`sharings are ${dupa.definitionId}`)
     return {
       userName: "User1",
       expireDate: "duap",
       amountLeft: "123",
     };
   });
-  const sharings = useSelector(selectSharingActiveUser).map((a) => {
+  const sharings = useSelector(selectSharingActiveUser).map((dupa) => {
+    console.log(`sharings are ${dupa.definitionId}`)
     return {
       userName: 'User2',
       expireDate: 'duap',
@@ -94,7 +96,7 @@ const AllowancesView = () => {
   // ];
 
   return (
-    <Box pt={5}>
+    <Box pt={5} px={2}>
       <Typography variant="h2">Środki Dostępne</Typography>
       <Box pt={5}>
         <AllowancesTable allowanceTableDataRows={allowances} />

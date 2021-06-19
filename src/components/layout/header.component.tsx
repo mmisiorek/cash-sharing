@@ -1,7 +1,7 @@
 import React from "react";
 import mainLogo from'./logo.png';
 import { makeStyles } from "@material-ui/core/styles";
-import { Users } from "../Users";
+import { UserDetails } from "./userDetails.component";
 
 const useStyles = makeStyles({
   usersWrapper: {
@@ -11,15 +11,22 @@ const useStyles = makeStyles({
   logo: {
     width: "auto",
     height: 40
+  },
+  header: {
+    background: "white",
+    flexWrap: "wrap"
+
   }
 });
 export const Headercomponent: React.FC= () => {
     const classes = useStyles();
     return (
         <>
-           <img className={classes.logo} src={mainLogo} alt="cash-sharing"/>
-           <div className={classes.usersWrapper}>
-              <Users />
+          <div className={classes.header}>
+            <img className={classes.logo} src={mainLogo} alt="cash-sharing"/>
+            <div className={classes.usersWrapper}>
+                <UserDetails />
+              </div>
             </div>
         </>
     );
