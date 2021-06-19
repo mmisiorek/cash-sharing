@@ -13,7 +13,7 @@ import moment from "moment";
 export type AllowanceTableDataRow = {
   userName: string;
   amountLeft: string;
-  expireDate: number;
+  expireDate: string;
 };
 
 type AllowancesTableProps = {
@@ -36,9 +36,7 @@ const AllowancesTable = ({ allowanceTableDataRows }: AllowancesTableProps) => (
             <TableCell>{allowanceTableDataRow.userName}</TableCell>
             <TableCell>{allowanceTableDataRow.amountLeft}</TableCell>
             <TableCell>
-              {moment(allowanceTableDataRow.expireDate * 1000).format(
-                "DD-MM-YYYY h:mm:ss"
-              )}
+              {allowanceTableDataRow.expireDate}
             </TableCell>
           </TableRow>
         ))}

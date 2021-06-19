@@ -56,10 +56,10 @@ function App() {
 
           <Box>
             {items[0].value === selectedTab && <CreateAllowanceForm />}
-            {items[1].value === selectedTab && <AllowancesView />}
+            {/* {items[1].value === selectedTab && <AllowancesView />} */}
             {items[2].value === selectedTab && <TransferForm />}
           </Box>
-          <AllowancePopulateAction />
+          {/* <AllowancePopulateAction /> */}
         </ThemeProvider>
       </Provider>
     </div>
