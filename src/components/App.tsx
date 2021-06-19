@@ -1,9 +1,9 @@
 import React from 'react';
-import Button from '@material-ui/core/Button'
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 
-import {Provider, useStore} from 'react-redux'
+import {Provider} from 'react-redux'
 import { store } from '../store'
+import {Users} from "./Users";
 
 
 function App() {
@@ -11,17 +11,11 @@ function App() {
     <div className="App">
         <Provider store={store}>
             <ThemeProvider theme={createMuiTheme()}>
-                <SuperButton />
+                <Users />
             </ThemeProvider>
         </Provider>
     </div>
   );
-}
-
-function SuperButton() {
-    return <Button color={"primary"}>
-        "Ok"
-    </Button>
 }
 
 export default App;

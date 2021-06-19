@@ -16,7 +16,7 @@ interface UserType {
   allowances: Allowance[];
 }
 
-type UsersStateType = {
+export type UsersStateType = {
   users: UserType[];
 };
 
