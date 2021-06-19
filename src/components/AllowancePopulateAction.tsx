@@ -5,23 +5,21 @@ import { allowanceDefinitionActions } from '../store/allowance/allowanceDefiniti
 
 import { useDispatch, useSelector } from "react-redux";
 import { StoreDispatch } from "../store/index.types";
-import { selectActiveAllowanceStateByUserId, selectActiveSharingStateByUserId } from "../store/allowance/allowanceSelector";
+import { selectAllowanceActiveUser, selectSharingActiveUser } from "../store/allowance/allowanceSelector";
 import { allowanceStateActions } from "../store/allowance/allowanceState.slice";
 
 import { usersSelector } from "../store/selectors";
 
 export const AllowancePopulateAction = () => {
   const dispatch = useDispatch<StoreDispatch>()
-  const selectAllowanceStateByUserId = useSelector(selectActiveAllowanceStateByUserId)
-  const selectSharingStateByUserId = useSelector(selectActiveSharingStateByUserId)
+  const allowances = useSelector(selectAllowanceActiveUser)
+  const sharing = useSelector(selectSharingActiveUser)
   
   const users = useSelector(usersSelector)
 
   const userSpender = users[0].id
   const userOwner = users[1].id
-  const allowanceStateList = selectAllowanceStateByUserId(userSpender)
-  const sharingStateList = selectSharingStateByUserId(userOwner)
-
+  
   const handleAddAllowanceDefinition = () => {
     dispatch(
         allowanceDefinitionActions.addDefinition({
@@ -46,7 +44,7 @@ export const AllowancePopulateAction = () => {
         Populate ALlowance
       </Button>
       <ul>{
-        allowanceStateList.map(allowanceState => (<li>
+        allowances.map(allowanceState => (<li>
           <Button onClick={() => handleSpendAllowance(allowanceState.id)}>
             Spend Allowance
             &nbsp;
@@ -54,7 +52,7 @@ export const AllowancePopulateAction = () => {
           </Button>
           </li>))
       }</ul>
-      <ul>{sharingStateList.map(sharingState => (<li>{sharingState.amountLeft}</li>))}</ul>
+      <ul>{sharing.map(sharingState => (<li>{sharingState.amountLeft}</li>))}</ul>
     </>
   );
 };

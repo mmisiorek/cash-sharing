@@ -5,6 +5,7 @@ import { allowanceStateAdapter } from './allowanceState.slice'
 import { allowanceDefinitionAdapter } from './allowanceDefinition.slice'
 import { getDays } from './populateAllowanceState.saga'
 import { AllowanceState } from './allowance.types'
+import { selectActiveUser } from '../user/userState.selector'
 
 export const allowanceStateList = createSelector(
   selectReducer(StoreKeys.AllowanceState),
@@ -37,10 +38,10 @@ export const selectAllowanceDefinitionByUserId = createSelector(
   }
 )
 
-export const selectActiveAllowanceStateByUserId = createSelector(
-  [selectAllowanceDefinitionByUserId, selectAllowanceStateByDefinitionId],
-  (selectAllowanceDefinitionByUserId, selectAllowanceStateByDefinitionId) => (userId: string) => {
-    const allowanceDefinitionList =  selectAllowanceDefinitionByUserId(userId)
+export const selectAllowanceActiveUser = createSelector(
+  [selectActiveUser, selectAllowanceDefinitionByUserId, selectAllowanceStateByDefinitionId],
+  (activeUser, selectAllowanceDefinitionByUserId, selectAllowanceStateByDefinitionId) => {
+    const allowanceDefinitionList =  selectAllowanceDefinitionByUserId(activeUser.id)
     return allowanceDefinitionList.reduce((activeAllowanceStateList, allowanceDefinition) => {
       const { id } = allowanceDefinition
       const allowanceStateList = selectAllowanceStateByDefinitionId(id)
@@ -58,6 +59,11 @@ export const selectActiveAllowanceStateByUserId = createSelector(
   }
 )
 
+export const selectActiveAllowanceStateByOwnerId = createSelector(
+  [selectAllowanceActiveUser],
+  (allowanceActiveUser) => (ownerId: string) => allowanceActiveUser.filter(({ id }) => id === ownerId)
+)
+
 export const sharingDefinitionByUserId = createSelector(
   allowanceDefinitionList,
   (allowanceDefinitionList) => (userId: string) => {
@@ -68,10 +74,10 @@ export const sharingDefinitionByUserId = createSelector(
 )
 
 
-export const selectActiveSharingStateByUserId = createSelector(
-  [sharingDefinitionByUserId, selectAllowanceStateByDefinitionId],
-  (sharingDefinitionByUserId, selectAllowanceStateByDefinitionId) => (userId: string) => {
-    const allowanceDefinitionList =  sharingDefinitionByUserId(userId)
+export const selectSharingActiveUser = createSelector(
+  [selectActiveUser, sharingDefinitionByUserId, selectAllowanceStateByDefinitionId],
+  (activeUser, sharingDefinitionByUserId, selectAllowanceStateByDefinitionId) => {
+    const allowanceDefinitionList =  sharingDefinitionByUserId(activeUser.id)
     return allowanceDefinitionList.reduce((activeSharingStateList, allowanceDefinition) => {
       const { id } = allowanceDefinition
       const allowanceStateList = selectAllowanceStateByDefinitionId(id)
@@ -87,4 +93,9 @@ export const selectActiveSharingStateByUserId = createSelector(
       ]
     }, [] as AllowanceState[])
   }
+)
+
+export const selectActiveSharingBySpenderId = createSelector(
+  [selectSharingActiveUser], (sharingActiveUser) => (spenderId: string) =>
+  sharingActiveUser.filter(({ id }) => id === spenderId)
 )
