@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 
-import { Box, Button, TextField, Typography } from "@material-ui/core";
+import { Box, Button } from "@material-ui/core";
 
-import { getInputValue } from "../TransferForm.utils";
 import UserSelector from "../../userSelector/userSelector.component";
 
 import TransferTable from "../../tables/transferTable/TransferTable.component";
 
 import { UserType } from "../../../store/users";
+import Input from "../../input/Input.component";
 
 const TransferManual: React.FC<any> = () => {
   const [rows, setRows] = useState<
@@ -19,16 +19,6 @@ const TransferManual: React.FC<any> = () => {
   >([]);
   const [user, setUser] = useState("");
   const [value, setValue] = useState("");
-
-  const valueChangeHandler = (
-    event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
-  ): void => {
-    const value = getInputValue(event?.currentTarget?.value, 2);
-
-    if (value === "" || value) {
-      setValue(value);
-    }
-  };
 
   const onUserChange = (user: UserType) => {
     if (user) {
@@ -42,7 +32,7 @@ const TransferManual: React.FC<any> = () => {
         ...rows,
         {
           userName: user,
-          totalAmount: value,
+          totalAmount: "Duzo",
           amountUsed: value,
         },
       ]);
@@ -56,16 +46,7 @@ const TransferManual: React.FC<any> = () => {
       </Box>
 
       <Box pt={2}>
-        <Box>
-          <Typography variant="h5">Całkowita kwota</Typography>
-
-          <TextField
-            style={{ width: "100%" }}
-            value={value}
-            onChange={valueChangeHandler}
-            variant="outlined"
-          />
-        </Box>
+        <Input value={value} onChange={(val) => setValue(val)} label="Kwota" />
       </Box>
 
       <Box pt={2} width="100%" display="flex" justifyContent="center">

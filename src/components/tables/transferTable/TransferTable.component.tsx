@@ -23,9 +23,9 @@ const TransferTable = ({ rows }: TransferTableProps) => (
     <Table>
       <TableHead>
         <TableRow>
-          <TableCell>Użytkownik</TableCell>
-          <TableCell>Kwota udostępniona</TableCell>
-          <TableCell>Kwota zatwierdzona</TableCell>
+          <TableCell>Nazwa Użytkownik</TableCell>
+          <TableCell>Dostępne środki</TableCell>
+          <TableCell>Kwota</TableCell>
         </TableRow>
       </TableHead>
       <TableBody>
