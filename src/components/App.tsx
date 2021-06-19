@@ -4,10 +4,9 @@ import { Provider } from "react-redux";
 import { mainSaga } from "../saga";
 import { sagaMiddleware, store } from "../store";
 import { ThemeProvider } from "../styles/theme";
-import ShareForm from "./shareForm/ShareForm.component";
+
 import Tabs from "./tabs/tabs.component";
-import { Users } from "./Users";
-import { AllowancePopulateAction } from "./AllowancePopulateAction";
+
 import AllowanceForm from "./allowanceForm/AllowanceForm.component";
 import TransferForm from "./transferForm/TransferForm.component";
 import { Box } from "@material-ui/core";
