@@ -1,6 +1,6 @@
 import { ActionType } from "./index.types";
 
-interface Allowance {
+export interface Allowance {
   receiverId: string;
   amount: number;
   startDate: Date;
@@ -9,7 +9,7 @@ interface Allowance {
   cycle?: number;
 }
 
-interface UserType {
+export interface UserType {
   id: string;
   name: string;
   balance: number;

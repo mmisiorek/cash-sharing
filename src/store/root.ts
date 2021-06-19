@@ -1,11 +1,13 @@
 import { combineReducers } from "@reduxjs/toolkit";
 
-import { usersReducer, UsersStateType } from "./users";
+import { usersReducer } from "./users";
 
-export type RootState = {
-  users: UsersStateType
+export enum StoreKeys {
+  Users = "users",
 }
 
 export const rootReducer = combineReducers({
-  users: usersReducer,
+  [StoreKeys.Users]: usersReducer,
 });
+
+export type StoreState = ReturnType<typeof rootReducer>;

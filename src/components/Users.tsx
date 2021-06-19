@@ -1,17 +1,19 @@
-import React from 'react'
+import React from "react";
 
-import Select from '@material-ui/core/Select'
-import MenuItem from "@material-ui/core/MenuItem"
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
 
 import { useSelector } from "react-redux";
-import { RootState } from '../store/root'
+import { usersSelector } from "../store/selectors";
 
 export const Users = () => {
-    const userNames = useSelector((state: RootState) => {
-        return state.users.users.map(user => user.name)
-    })
+  const users = useSelector(usersSelector);
 
-    return <Select>
-        {userNames.map(userName => <MenuItem>{userName}</MenuItem>)}
+  return (
+    <Select>
+      {users.map((user) => (
+        <MenuItem>{user.name}</MenuItem>
+      ))}
     </Select>
-}
+  );
+};
