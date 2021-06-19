@@ -8,11 +8,11 @@ import { ThemeProvider } from "../styles/theme";
 import Tabs from "./tabs/tabs.component";
 
 import TransferForm from "./transferForm/TransferForm.component";
-import CreateAllowanceFormComponent from "./createAllowanceForm/CreateAllowanceForm.component";
+import CreateAllowanceForm from "./createAllowanceForm/CreateAllowanceForm.component";
 import { Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core";
 import { Users } from "./Users";
-import { UserView } from "./UserView";
+import AllowancesView from "./allowancesView/AllowancesView.component";
 
 const useClasses = makeStyles({
   usersWrapper: {
@@ -53,9 +53,9 @@ function App() {
             />
           </Box>
 
-          <Box paddingX={4}>
-            {items[0].value === selectedTab && <CreateAllowanceFormComponent />}
-            {items[1].value === selectedTab && <UserView />}
+          <Box>
+            {items[0].value === selectedTab && <CreateAllowanceForm />}
+            {items[1].value === selectedTab && <AllowancesView />}
             {items[2].value === selectedTab && <TransferForm />}
           </Box>
         </ThemeProvider>

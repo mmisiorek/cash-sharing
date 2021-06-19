@@ -18,7 +18,7 @@ type AllowancesTableProps = {
     allowanceTableDataRows: AllowanceTableDataRow[]
 }
 
-export const AllowancesTable = ({ allowanceTableDataRows }: AllowancesTableProps) => (
+const AllowancesTable = ({ allowanceTableDataRows }: AllowancesTableProps) => (
     <TableContainer component={Paper}>
         <Table>
             <TableHead>
@@ -40,3 +40,5 @@ export const AllowancesTable = ({ allowanceTableDataRows }: AllowancesTableProps
         </Table>
     </TableContainer>
 )
+
+export default AllowancesTable
