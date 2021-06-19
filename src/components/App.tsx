@@ -19,10 +19,8 @@ function App() {
 }
 
 function SuperButton() {
-    const store = useStore()
-
     return <Button color={"primary"}>
-        {store.getState().messages.messages[0]}
+        "Ok"
     </Button>
 }
 
