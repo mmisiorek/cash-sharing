@@ -1,26 +1,22 @@
-import { ActionType } from "./index.types";
-
-export interface Allowance {
-  receiverId: string;
-  amount: number;
-  startDate: Date;
-  expireDate: Date;
-  infiniteCycle?: boolean;
-  cycle?: number;
-}
+import {
+  createSlice,
+  createEntityAdapter,
+  PayloadAction,
+} from "@reduxjs/toolkit";
+import { AllowanceState } from "./allowance/allowance.types";
 
 export interface UserType {
   id: string;
   name: string;
   balance: number;
-  allowances: Allowance[];
+  allowances: Array<AllowanceState["id"]>;
 }
 
 export type UsersStateType = {
   users: UserType[];
 };
 
-const initialState = {
+const initialState: UsersStateType = {
   users: [
     {
       id: "510298100",
@@ -48,15 +44,20 @@ const initialState = {
     },
   ],
 };
+export const userAdapter = createEntityAdapter<UserType>();
 
-export function usersReducer(
-  state: UsersStateType = initialState,
-  action: ActionType
-): UsersStateType {
-  switch (action.type) {
-    case "something":
+const userSliceState = userAdapter.getInitialState(initialState);
+
+export const userSlice = createSlice({
+  initialState: userSliceState,
+  name: "User",
+  reducers: {
+    updateBalance: (state, action: PayloadAction<number>) => {
+      const balance = action.payload;
       return state;
-    default:
-      return state;
-  }
-}
+    },
+  },
+});
+
+export const userActions = userSlice.actions;
+export const userReducer = userSlice.reducer;

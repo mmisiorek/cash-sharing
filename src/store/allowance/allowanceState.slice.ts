@@ -2,8 +2,9 @@ import {
   createSlice,
   createEntityAdapter,
   PayloadAction,
+  Update,
 } from '@reduxjs/toolkit'
-import { AllowanceState } from './allowance.types'
+import { AllowanceSpend, AllowanceState } from './allowance.types'
 
 export const allowanceStateAdapter = createEntityAdapter<AllowanceState>()
 
@@ -15,7 +16,18 @@ export const allowanceDefinitionSlice = createSlice({
   reducers: {
     addState: (state,  action: PayloadAction<AllowanceState>) => {
       allowanceStateAdapter.addOne(state, action.payload)
+      return state;
     },
+    spendAllowance: (state,  _action: PayloadAction<AllowanceSpend>) => state,
+    updateState: (state, action: PayloadAction<AllowanceState>) => {
+      const { id, ...changes } = action.payload
+      const update: Update<AllowanceState> = {
+        id,
+        changes,
+      }
+      allowanceStateAdapter.updateOne(state, update)
+      return state;
+    }
   },
 })
 
