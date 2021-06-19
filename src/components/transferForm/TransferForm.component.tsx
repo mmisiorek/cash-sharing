@@ -30,10 +30,11 @@ const TransferForm: React.FC<any> = () => {
   return (
     <Box display="flex" justifyContent="center" pt={2}>
       <Box p={2} width="100%">
-        <Toggle toggles={items} onToggleChange={onToggleChange} />
+        <TransferManual />
+        {/*<Toggle toggles={items} onToggleChange={onToggleChange} />*/}
 
-        {selectToggle === items[0].id && <TransferManual />}
-        {selectToggle === items[1].id && <TransferAutomatic />}
+        {/*{selectToggle === items[0].id && <TransferManual />}*/}
+        {/*{selectToggle === items[1].id && <TransferAutomatic />}*/}
       </Box>
     </Box>
   );
