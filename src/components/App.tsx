@@ -7,6 +7,7 @@ import { ThemeProvider } from "../styles/theme";
 
 import { Users } from "./Users";
 import { AllowancePopulateAction } from "./AllowancePopulateAction";
+import { UserView } from "./UserView"
 
 function App() {
   useEffect(()=> {
@@ -19,6 +20,7 @@ function App() {
         <ThemeProvider>
           <Users />
           <AllowancePopulateAction />
+          <UserView />
         </ThemeProvider>
       </Provider>
     </div>

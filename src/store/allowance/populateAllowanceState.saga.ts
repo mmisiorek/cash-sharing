@@ -23,6 +23,8 @@ export function* populateAllowanceStateSaga(
     const id = crypto.randomBytes(16).toString('hex')
     const allowanceState: AllowanceState = {
       id,
+      ownerId,
+      spenderId,
       amountLeft: amount,
       expireDate: expirationFullDays,
       startDate: currentFullDays,
