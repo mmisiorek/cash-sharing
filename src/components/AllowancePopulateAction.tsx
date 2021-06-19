@@ -30,6 +30,8 @@ export const AllowancePopulateAction = () => {
             ownerId:userOwner,
             spenderId: userSpender,
             amount: 50,
+            cycle: 20,
+            durationDays: 3
         }),
     )
   }
